@@ -1,5 +1,5 @@
 //Global Stuff
-const { globalStart } = require('../../global/start.js')
+const { globalStart } = require('./global/start.js')
 globalStart()
 
 //Discord Bot
