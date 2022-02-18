@@ -1,0 +1,1 @@
+DISCORD_TOKEN is the token for the discord bot
