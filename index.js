@@ -33,8 +33,6 @@ for (const file of eventFiles) {
 //Loading Commands
 loadCommands(client)
 
-
-
 //Functions
 function loadCommands(client) {
   client.messageCommands = new Discord.Collection()
@@ -47,16 +45,16 @@ function loadCommands(client) {
   		const command = require(`./messageCommands/${file}`);
   		client.messageCommands.set(command.name.toLowerCase(), command);
     }
-    console.log(`${color.white(new Date())} ${color.green('Loaded Message Commands')}`)
+    console.log(`${new Date().toLocaleTimeString()} > Loaded Message Commands`)
   }
 
-  if(fs.existsSync(__dirname + './slashCommands')) {
-    const folder = fs.readdirSync(__dirname + './slashCommands');
+  if(fs.existsSync(__dirname + '/slashCommands')) {
+    const folder = fs.readdirSync(__dirname + '/slashCommands');
 
     for (const file of folder) {
   		const command = require(`./slashCommands/${file}`);
   		client.slashCommands.set(command.name.toLowerCase(), command);
     }
-    console.log(`${color.white(new Date())} ${color.green('Loaded Slash Commands')}`)
+    console.log(`${new Date().toLocaleTimeString()} > Loaded Slash Commands`)
   }
 }
