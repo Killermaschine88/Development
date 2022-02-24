@@ -1,7 +1,12 @@
 module.exports = {
   name: "debug",
   async execute(debug) {
+
+    //Imports
+
+    //Code
     if(!process.env.LOGGING) return
-    console.log(`${new Date().toLocaleTimeString()} > ${debug}`)
+    return
+    log(debug)
   }
 }

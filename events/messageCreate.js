@@ -2,16 +2,18 @@ module.exports = {
   name: "messageCreate",
   async execute(message, client) {
 
-    if(!message.content.startsWith(process.env.PREFIX || '?')) return //ignore messages which
-    if(message.author.bot) return //Ignore bots
+    //Imports
+    
+    //Code
+    if(!message.content.startsWith(process.env.PREFIX || '?')) return
+    if(message.author.bot) return
 
     const args = message.content.slice(process.env.PREFIX || '?').trim().split(/ +/)
     const commandName = args.shift().toLowerCase().replace(process.env.PREFIX || '?', '')
-    const command = client.messageCommands.get(commandName)
+    const command = client.messageCommands.get(commandName) || client.messageCommands.find(cmd => cmd.alias.includes(commandName))
 
-    if(!command) return //return if no commands was found
+    if(!command) return
 
-    //ignore users trying to
     if(command.devOnly) {
       if(!client.application?.owner?.id) {
         await client.application.fetch()
@@ -22,7 +24,7 @@ module.exports = {
     }
 
     if(process.env.LOGGING) {
-      console.log(`${new Date().toLocaleTimeString()} > ${commandName} used`)
+      log(`${commandName} used by ${message.author.tag}`)
     }
 
     command.execute(message, args, client)

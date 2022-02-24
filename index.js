@@ -45,7 +45,7 @@ function loadCommands(client) {
   		const command = require(`./messageCommands/${file}`);
   		client.messageCommands.set(command.name.toLowerCase(), command);
     }
-    console.log(`${new Date().toLocaleTimeString()} > Loaded Message Commands`)
+    log(`Loaded Message Commands`)
   }
 
   if(fs.existsSync(__dirname + '/slashCommands')) {
@@ -55,6 +55,8 @@ function loadCommands(client) {
   		const command = require(`./slashCommands/${file}`);
   		client.slashCommands.set(command.name.toLowerCase(), command);
     }
-    console.log(`${new Date().toLocaleTimeString()} > Loaded Slash Commands`)
+    log(`Loaded Slash Commands`)
   }
 }
+
+client.reload = loadCommands
