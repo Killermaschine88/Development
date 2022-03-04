@@ -23,6 +23,9 @@ module.exports = {
       return await interaction.editReply(`You can't play against yourself.`)
     }
 
+    //notify user someone challenged them
+    await interaction.followUp({content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you.`})
+
     const embed = new Discord.MessageEmbed().setTitle('TicTacToe Match').setColor('GREEN').setDescription(`\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
 
     const rows = [new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow()]
