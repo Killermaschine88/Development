@@ -19,9 +19,9 @@ module.exports = {
       return await interaction.editReply(`Can't play against \`${opponent.tag}\` as they are a bot.`)
     }
 
-    /*if(interaction.user.id === opponent.id) {
+    if(interaction.user.id === opponent.id) {
       return await interaction.editReply(`You can't play against yourself.`)
-    }*/
+    }
 
     const embed = new Discord.MessageEmbed().setTitle('TicTacToe Match').setColor('GREEN').setDescription(`\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
 
@@ -146,9 +146,5 @@ function winCheck(rows, players) {
   }
 
   //return winner
-  if(winner) {
-    return { state: true, winner: winner}
-  } else {
-    return { state: false, winner: null}
-  }
+  return { state: winner ? true : false, winner: winner }
 }
