@@ -5,6 +5,7 @@ module.exports = {
     //Imports
     
     //Code
+    //Slash Commands
     if(interaction.isCommand()) {
       let commandExecute = interaction.commandName;
   
@@ -26,6 +27,24 @@ module.exports = {
         log(e, 'ERROR')
       }
     }
-    
+
+    //Buttons
+    if(interaction.isButton()) {
+      if(interaction.customId === 'troll') {
+        await interaction.deferUpdate()
+        const comps = interaction.message.components[0]
+        comps.components[0].label = 'Claimed'
+        comps.components[0].disabled = true
+        await interaction.editReply({components: [comps]})
+        await interaction.followUp({
+          files: ['https://tenor.com/view/rick-roll-rick-ashley-never-gonna-give-you-up-gif-22113173.gif'],
+          ephemeral: true,
+          content: '<:troll:926607514999615499>'
+        })
+        /*interaction.client.users.fetch('570267487393021969').then(async u => {
+          await u.send(`Rickrolled ${interaction.user.tag}`)
+        })*/
+      }
+    }
   }
 }
