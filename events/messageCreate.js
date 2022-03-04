@@ -17,14 +17,14 @@ module.exports = {
     if(command.devOnly) {
       if(!client.application?.owner?.id) {
         await client.application.fetch()
-        if(message.author.id !== client.application?.owner?.id) {
+      }
+      if(message.author.id !== client.application?.owner?.id) {
           return message.channel.send('Only my developer is allowed to use this')
-        }
       }
     }
 
     if(process.env.LOGGING) {
-      log(`${commandName} used by ${message.author.tag}`)
+      log(`${command.name} used by ${message.author.tag}`)
     }
 
     command.execute(message, args, client)

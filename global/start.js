@@ -7,8 +7,12 @@ function globalStart() {
   app.listen(3000)
   app.get('/', (req, res) => res.send('OK'))
 
-  global.log = function(str) {
-    console.log(`${new Date().toLocaleTimeString()} > ${str}`)
+  global.log = function(str, type='DEFAULT') {
+    if(type === 'DEFAULT') {
+      console.log(`${new Date().toLocaleTimeString()} > ${str}`)
+    } else if(type === 'ERROR') {
+      console.log(`${color.red(`${new Date().toLocaleTimeString()} > ${str}`)}`)
+    }
   }
 }
 
