@@ -24,7 +24,7 @@ module.exports = {
     }
 
     //notify user someone challenged them
-    await interaction.followUp({content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you.`})
+    await interaction.channel.send({content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you to a game of TicTacToe.`})
 
     const embed = new Discord.MessageEmbed().setTitle('TicTacToe Match').setColor('GREEN').setDescription(`\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
 
@@ -54,7 +54,7 @@ module.exports = {
 
     collector.on('collect', async i => {
       await i.deferUpdate()
-      if(i.user.id != current_turn_id) {
+      if(i.user.id !== current_turn_id) {
         return
       }
       
@@ -64,7 +64,7 @@ module.exports = {
       rows[index1].components[index2].disabled = true
       rows[index1].components[index2].label = current_turn_id === interaction.user.id ? checkmark : cross
 
-      current_turn_id = current_turn_id === interaction.user.id ? opponent.id : interaction.user.id
+      current_turn_id = current_turn_id === interaction.user.id ? opponent.id : interaction.user.id //changing current turn id
 
       const result = winCheck(rows, players)
 
