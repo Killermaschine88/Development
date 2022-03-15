@@ -5,4 +5,4 @@ Your discord token copied from https://discord.com/developers/applications
 The prefix you want your bot to reply to (defaults to ?)
 
 ## LOGGING
-If the bot should log various tasks into the console (defaults to ?)
+If the bot should log various tasks into the console (defaults to false)

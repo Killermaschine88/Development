@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "pm2 start index.js",
+    "kill": "pm2 delete 'all'"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "pm2": "^5.2.0",
     "prettier": "^2.5.1",
     "pretty-ms": "^7.0.1",
     "sourcebin": "^4.3.5"

@@ -27,6 +27,6 @@ module.exports = {
       log(`${command.name} used by ${message.author.tag}`)
     }
 
-    command.execute(message, args, client)
+    await command.execute(message, args, client)
   }
 }

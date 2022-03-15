@@ -15,7 +15,7 @@ module.exports = {
   
       const command = interaction.client.slashCommands.get(commandExecute)
   
-      if(command.devOnly) {
+      if(command.devOnly && interaction.user.id !== interaction.client.application?.owner?.id) {
         await interaction.reply('This command is Dev only.')
         return
       }
