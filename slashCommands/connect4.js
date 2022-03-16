@@ -59,7 +59,7 @@ module.exports = {
 
     const collector = message.createMessageComponentCollector({
 			componentType: 'BUTTON',
-			time: 5 * 60000,
+			time: 10 * 60000,
 		});
 
     let current_turn_id = interaction.user.id
@@ -99,7 +99,7 @@ module.exports = {
     })
 
     collector.on('end', async () => {
-      embed.setDesciption(null)
+      embed.setDescription(renderBoard(board))
       await interaction.editReply({components: [], embeds: [embed]})
     })
   }
