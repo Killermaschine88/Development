@@ -134,6 +134,29 @@ function updateBoard(board, row, id, interaction) {
   return board
 }
 
+function checkRow({row, value}) {
+  return (acumulator => row.some(dot => (acumulator = dot === value ? acumulator + 1 : 0) === 4))(0)
+}
+
+function checkColumn({board, indexColumn, value}) {
+  return (acumulator => board.some(row => (acumulator = row[indexColumn] === value ? acumulator + 1 : 0) === 4))(0)
+}
+
+function checkDiagonal({board, indexRow, indexColumn, value, up, acumulator = 0}) {
+    return board.some((row) => {
+      if(indexRow > board.length - 1 || indexRow < 0 || indexColumn > row.length - 1 || indexColumn < 0) return false;
+      acumulator = board[indexRow][indexColumn] === value ? acumulator + 1 : 0;
+      if(up) {
+        indexRow--;
+        indexColumn++; 
+      } else {
+        indexRow++;
+        indexColumn++;
+      }
+      return acumulator === 4
+    })
+}
+
 function winCheck(board, players, rows) {
   //tie check
   let count = 0
@@ -142,32 +165,16 @@ function winCheck(board, players, rows) {
       if(index.disabled) count++
     }
   }
-
   //rest
   let winner = null
-board.forEach((row, rowI) => {
-    row.forEach((dot, colI) => {
-      if (dot) {
-        if (row[colI - 3] === dot && row[colI - 2] === dot && row[colI - 1] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (row[colI + 1] === dot && row[colI + 2] === dot && row[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI] === dot && board[rowI - 2]?.[colI] === dot && board[rowI - 3]?.[colI] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI] === dot && board[rowI + 2]?.[colI] === dot && board[rowI + 3]?.[colI] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI - 1] === dot && board[rowI - 2]?.[colI - 2] === dot && board[rowI - 3]?.[colI - 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI + 1] === dot && board[rowI - 2]?.[colI + 2] === dot && board[rowI - 3]?.[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI - 1] === dot && board[rowI + 2]?.[colI - 2] === dot && board[rowI + 3]?.[colI - 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI + 1] === dot && board[rowI + 2]?.[colI + 2] === dot && board[rowI + 3]?.[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      }
-    }
-  });
-})
+  board.forEach((row, indexRow) => {
+    winner = checkRow({row, value: 1}) ? players[0] : checkRow({row, value: 2}) ? players[1] : winner;
+    row.forEach((_, indexColumn) => {
+      winner = checkColumn({board, indexColumn, value: 1}) ? players[0] : checkColumn({board, indexColumn, value: 2}) ? players[1] : winner;
+      winner = checkDiagonal({board, indexRow, indexColumn, value: 1, up: true}) ? players[0] : checkDiagonal({board, indexRow, indexColumn, value: 2, up: true}) ? players[1] : winner;
+      winner = checkDiagonal({board, indexRow, indexColumn, value: 1, up: false}) ? players[0] : checkDiagonal({board, indexRow, indexColumn, value: 2, up: false}) ? players[1] : winner;
+    })
+  })
 
 
   //return states
