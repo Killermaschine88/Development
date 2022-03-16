@@ -17,13 +17,13 @@ module.exports = {
     //Code
     const opponent = interaction.options.getUser('opponent')
 
-    /*if(opponent.bot) {
+    if(opponent.bot) {
       return await interaction.editReply(`Can't play against \`${opponent.tag}\` as they are a bot.`)
     }
 
     if(interaction.user.id === opponent.id) {
       return await interaction.editReply(`You can't play against yourself.`)
-    }*/
+    }
 
     let board = [
       [0, 0, 0, 0, 0, 0, 0],
@@ -88,7 +88,10 @@ module.exports = {
       const check = winCheck(board, players, rows)
 
       if(check.state === 'Tie') {
-        await embed.addField(`${check.state}`, `${check.state}`)
+        embed.addField(`${check.state}`, `${check.state}`)
+        return collector.stop()
+      } else if(check.state === 'Won') {
+        embed.addField('Winner', `${check.winner}`)
         return collector.stop()
       }
 
@@ -96,6 +99,7 @@ module.exports = {
     })
 
     collector.on('end', async () => {
+      embed.setDesciption(null)
       await interaction.editReply({components: [], embeds: [embed]})
     })
   }
@@ -132,17 +136,45 @@ function updateBoard(board, row, id, interaction) {
 
 function winCheck(board, players, rows) {
   //tie check
-  let i = 0
+  let count = 0
   for(const row of rows) {
     for(const index of row.components) {
-      if(index.disabled) i++
+      if(index.disabled) count++
     }
   }
 
+  //rest
+  let winner = null
+board.forEach((row, rowI) => {
+    row.forEach((dot, colI) => {
+      if (dot) {
+        if (row[colI - 3] === dot && row[colI - 2] === dot && row[colI - 1] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (row[colI + 1] === dot && row[colI + 2] === dot && row[colI + 3] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI - 1]?.[colI] === dot && board[rowI - 2]?.[colI] === dot && board[rowI - 3]?.[colI] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI + 1]?.[colI] === dot && board[rowI + 2]?.[colI] === dot && board[rowI + 3]?.[colI] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI - 1]?.[colI - 1] === dot && board[rowI - 2]?.[colI - 2] === dot && board[rowI - 3]?.[colI - 3] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI - 1]?.[colI + 1] === dot && board[rowI - 2]?.[colI + 2] === dot && board[rowI - 3]?.[colI + 3] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI + 1]?.[colI - 1] === dot && board[rowI + 2]?.[colI - 2] === dot && board[rowI + 3]?.[colI - 3] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      } else if (board[rowI + 1]?.[colI + 1] === dot && board[rowI + 2]?.[colI + 2] === dot && board[rowI + 3]?.[colI + 3] === dot) {
+          winner = dot === 1 ? players[0] : players[1]
+      }
+    }
+  });
+})
+
 
   //return states
-  if(i === 7) {
+  if(count === 7) {
     return { winner: null, state: 'Tie'}
+  } else if(winner) {
+    return { winner: winner, state: 'Won'}
   } else {
     return { winner: null, state: null }
   }
