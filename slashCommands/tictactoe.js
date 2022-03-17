@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const checkmark = "✅";
 const cross = "❌";
-const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
+const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
 
 module.exports = {
   name: "tictactoe",
@@ -11,18 +11,18 @@ module.exports = {
     const Discord = require("discord.js");
     const checkmark = "✅";
     const cross = "❌";
-    const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
+    const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
 
     //Code
     const opponent = interaction.options.getUser("opponent");
 
-    const check = gameStartCheck(interaction, opponent)
+    const check = gameStartCheck(interaction, opponent);
 
-    if(check.state) {
-      return await interaction.editReply(check.reason)
+    if (check.state) {
+      return await interaction.editReply(check.reason);
     }
 
-     await interaction.channel.send(notifyPlayers(interaction, opponent, 'TicTacToe'))
+    await interaction.channel.send(notifyPlayers(interaction, opponent, "TicTacToe"));
 
     const embed = new Discord.MessageEmbed().setTitle("TicTacToe Match").setColor("GREEN").setDescription(`Current turn: \`${interaction.user.tag}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``);
 

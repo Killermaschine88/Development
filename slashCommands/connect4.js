@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const red = "🔴";
 const yellow = "🟡";
 const empty = "⚫";
-const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
+const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
 
 module.exports = {
   name: "connect4",
@@ -13,18 +13,18 @@ module.exports = {
     const red = "🔴";
     const yellow = "🟡";
     const empty = "⚫";
-    const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
+    const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
 
     //Code
     const opponent = interaction.options.getUser("opponent");
 
-    const check = gameStartCheck(interaction, opponent)
+    const check = gameStartCheck(interaction, opponent);
 
-    if(check.state) {
-      return await interaction.editReply(check.reason)
+    if (check.state) {
+      return await interaction.editReply(check.reason);
     }
 
-    await interaction.channel.send(notifyPlayers(interaction, opponent, 'Connect4'));
+    await interaction.channel.send(notifyPlayers(interaction, opponent, "Connect4"));
 
     let board = [
       [0, 0, 0, 0, 0, 0, 0],
