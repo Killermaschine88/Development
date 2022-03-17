@@ -134,6 +134,82 @@ function updateBoard(board, row, id, interaction) {
   return board
 }
 
+function checkRow({ board, value }) {
+  // iterating the board
+  for (const row of board) {
+    let consecutiveMatchCount = 0;
+    // iterating the row
+    for (const dot of row) {
+      // checking if the element from the next column equals the value
+      if (dot === value) {
+        consecutiveMatchCount++;
+        if (consecutiveMatchCount === 4) return true;
+      } else {
+        consecutiveMatchCount = 0;
+      }
+    }
+  }
+  return false;
+}
+
+function checkColumn({ board, value }) {
+  let consecutiveMatchCount = 0;
+  // iterating the board
+  for (const row of board) {
+    // iterating the row and getting index
+    for (const [columnIndex, dot] of row.entries()) {
+      if (dot === value) {
+        // checking if there are 4 elements with the same value in the same column
+        for (const secondRowIteration of board) {
+          if (secondRowIteration[columnIndex] === value) {
+            consecutiveMatchCount++;
+          } else {
+            consecutiveMatchCount = 0;
+          }
+        }
+      }
+    }
+    if (consecutiveMatchCount === 4) return true;
+  }
+  return false;
+}
+
+function checkDiagonal({ board, value, up }) {
+  // iterating the board and getting index
+  for (let [rowIndex, row] of board.entries()) {
+    // iterating the row and getting index
+    for (let [columnIndex, dot] of row.entries()) {
+      if (dot === value) {
+        let consecutiveMatchCount = 0;
+        // while the following element of the diagonal equals the value
+        while (board[rowIndex]?.[columnIndex] === value) {
+          consecutiveMatchCount++;
+          if (consecutiveMatchCount === 4) return true;
+          // going up and right
+          if (up) {
+            rowIndex--;
+            columnIndex++;
+            // going down and right
+          } else {
+            rowIndex++;
+            columnIndex++;
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function checkWinFromPlayer(board, value) {
+  return (
+    checkDiagonal({ board, up: true, value }) ||
+    checkDiagonal({ board, up: false, value }) ||
+    checkRow({ board, value }) ||
+    checkColumn({ board, value })
+  );
+}
+
 function winCheck(board, players, rows) {
   //tie check
   let count = 0
@@ -142,32 +218,10 @@ function winCheck(board, players, rows) {
       if(index.disabled) count++
     }
   }
-
   //rest
   let winner = null
-board.forEach((row, rowI) => {
-    row.forEach((dot, colI) => {
-      if (dot) {
-        if (row[colI - 3] === dot && row[colI - 2] === dot && row[colI - 1] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (row[colI + 1] === dot && row[colI + 2] === dot && row[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI] === dot && board[rowI - 2]?.[colI] === dot && board[rowI - 3]?.[colI] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI] === dot && board[rowI + 2]?.[colI] === dot && board[rowI + 3]?.[colI] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI - 1] === dot && board[rowI - 2]?.[colI - 2] === dot && board[rowI - 3]?.[colI - 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI - 1]?.[colI + 1] === dot && board[rowI - 2]?.[colI + 2] === dot && board[rowI - 3]?.[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI - 1] === dot && board[rowI + 2]?.[colI - 2] === dot && board[rowI + 3]?.[colI - 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      } else if (board[rowI + 1]?.[colI + 1] === dot && board[rowI + 2]?.[colI + 2] === dot && board[rowI + 3]?.[colI + 3] === dot) {
-          winner = dot === 1 ? players[0] : players[1]
-      }
-    }
-  });
-})
+  if(checkWinFromPlayer(board, 1)) winner = players[0]
+  if(checkWinFromPlayer(board, 2)) winner = players[1]
 
 
   //return states
