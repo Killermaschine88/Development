@@ -1,7 +1,7 @@
 module.exports = {
-  name: "eventName",
-  async execute(param) {
-    //Imports
-    //Code
-  },
+	name: "eventName",
+	async execute(param) {
+		//Imports
+		//Code
+	},
 };

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "pm2 start index.js",
-    "kill": "pm2 delete 'all'"
+    "kill": "pm2 delete 'all'",
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",
