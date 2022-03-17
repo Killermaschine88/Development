@@ -205,7 +205,12 @@ function checkDiagonal({ board, value, up }) {
 }
 
 function checkWinFromPlayer(board, value) {
-	return checkDiagonal({ board, up: true, value }) || checkDiagonal({ board, up: false, value }) || checkRow({ board, value }) || checkColumn({ board, value });
+	return (
+		checkDiagonal({ board, up: true, value }) ||
+		checkDiagonal({ board, up: false, value }) ||
+		checkRow({ board, value }) ||
+		checkColumn({ board, value })
+	);
 }
 
 function winCheck(board, players, rows) {

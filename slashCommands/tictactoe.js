@@ -27,7 +27,10 @@ module.exports = {
 			content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you to a game of TicTacToe.`,
 		});
 
-		const embed = new Discord.MessageEmbed().setTitle("TicTacToe Match").setColor("GREEN").setDescription(`Current turn: \`${interaction.user.tag}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``);
+		const embed = new Discord.MessageEmbed()
+			.setTitle("TicTacToe Match")
+			.setColor("GREEN")
+			.setDescription(`Current turn: \`${interaction.user.tag}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``);
 
 		const rows = [new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow()];
 		const players = [interaction.user.tag, opponent.tag];
@@ -90,7 +93,11 @@ module.exports = {
 				return collector.stop();
 			}
 
-			embed.setDescription(`Current turn: \`${players[`${i.user.id === interaction.user.id ? 1 : 0}`]}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``);
+			embed.setDescription(
+				`Current turn: \`${players[`${i.user.id === interaction.user.id ? 1 : 0}`]}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${
+					opponent.tag
+				}: ${cross}\``
+			);
 
 			await interaction.editReply({ embeds: [embed], components: rows });
 		});
