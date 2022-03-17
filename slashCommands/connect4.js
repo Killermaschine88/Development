@@ -83,10 +83,10 @@ module.exports = {
       const check = winCheck(board, players, rows)
 
       if(check.state === 'Tie') {
-        embed.addField(`${check.state}`, `${check.state}`)
+        embed.addField(`Result`, `Tie`)
         return collector.stop()
       } else if(check.state === 'Won') {
-        embed.addField('Winner', `${check.winner}`)
+        embed.addField('Result', `Winner: \`${check.winner}\``)
         return collector.stop()
       }
 

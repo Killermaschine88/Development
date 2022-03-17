@@ -1,3 +1,7 @@
+const Discord = require('discord.js')
+const checkmark = '✅'
+const cross = '❌'
+
 module.exports = {
   name: "tictactoe",
   devOnly: false,
@@ -22,9 +26,10 @@ module.exports = {
     //notify user someone challenged them
     await interaction.channel.send({content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you to a game of TicTacToe.`})
 
-    const embed = new Discord.MessageEmbed().setTitle('TicTacToe Match').setColor('GREEN').setDescription(`\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
+    const embed = new Discord.MessageEmbed().setTitle('TicTacToe Match').setColor('GREEN').setDescription(`Current turn: \`${interaction.user.tag}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
 
     const rows = [new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow()]
+    const players = [interaction.user.tag, opponent.tag]
     
     let i = 0
     let j = 0
@@ -46,7 +51,6 @@ module.exports = {
 		});
 
     let current_turn_id = interaction.user.id
-    const players = [interaction.user.tag, opponent.tag]
 
     collector.on('collect', async i => {
       await i.deferUpdate()
@@ -65,9 +69,24 @@ module.exports = {
       const result = winCheck(rows, players)
 
       if(result.state) {
-        embed.addField('Winner', `${result.winner}`)
+        embed.addField('Result', `Winner: \`${result.winner}\``)
         return collector.stop()
       }
+
+      let j = 0
+
+      for(const row of rows) {
+        for(const button of row.components) {
+          if(button.disabled) j++
+        }
+      }
+
+      if(j === 9) {
+        embed.addField('Result', 'Tie')
+        return collector.stop()
+      }
+
+      embed.setDescription(`Current turn: \`${players[`${i.user.id === interaction.user.id ? 1 : 0}`]}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
       
       await interaction.editReply({embeds: [embed], components: rows})
     })
@@ -78,6 +97,7 @@ module.exports = {
           button.disabled = true
         }
       }
+      embed.setDescription(`\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``)
 
       return await interaction.editReply({embeds: [embed], components: rows})
     })

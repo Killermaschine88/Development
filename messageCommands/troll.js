@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'troll',
-	devOnly: false,
+	devOnly: true,
 	alias: ['tr'],
 	async execute(message, args, client) {
 

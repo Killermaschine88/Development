@@ -7,12 +7,6 @@ module.exports = {
     //Imports
 
     //Code
-		if (message.author.id !== client.application?.owner?.id) return message.channel.send("Can't use this!");
-
-		if (!client.application?.owner) await client.application?.fetch();
-
-		if (message.author.id === client.application?.owner.id) {
-
       for (const path in require.cache) {
         if (path.endsWith('.js')) {
           delete require.cache[path]
@@ -21,6 +15,5 @@ module.exports = {
 
       client.reload(client)
       await message.channel.send('Reloaded')
-		}
 	},
 };
