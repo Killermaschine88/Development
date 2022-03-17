@@ -134,27 +134,80 @@ function updateBoard(board, row, id, interaction) {
   return board
 }
 
-function checkRow({row, value}) {
-  return (acumulator => row.some(dot => (acumulator = dot === value ? acumulator + 1 : 0) === 4))(0)
-}
-
-function checkColumn({board, indexColumn, value}) {
-  return (acumulator => board.some(row => (acumulator = row[indexColumn] === value ? acumulator + 1 : 0) === 4))(0)
-}
-
-function checkDiagonal({board, indexRow, indexColumn, value, up, acumulator = 0}) {
-    return board.some((row) => {
-      if(indexRow > board.length - 1 || indexRow < 0 || indexColumn > row.length - 1 || indexColumn < 0) return false;
-      acumulator = board[indexRow][indexColumn] === value ? acumulator + 1 : 0;
-      if(up) {
-        indexRow--;
-        indexColumn++; 
+function checkRow({ board, value }) {
+  // iterating the board
+  for (const row of board) {
+    let consecutiveMatchCount = 0;
+    // iterating the row
+    for (const dot of row) {
+      // checking if the element from the next column equals the value
+      if (dot === value) {
+        consecutiveMatchCount++;
+        if (consecutiveMatchCount === 4) return true;
       } else {
-        indexRow++;
-        indexColumn++;
+        consecutiveMatchCount = 0;
       }
-      return acumulator === 4
-    })
+    }
+  }
+  return false;
+}
+
+function checkColumn({ board, value }) {
+  let consecutiveMatchCount = 0;
+  // iterating the board
+  for (const row of board) {
+    // iterating the row and getting index
+    for (const [columnIndex, dot] of row.entries()) {
+      if (dot === value) {
+        // checking if there are 4 elements with the same value in the same column
+        for (const secondRowIteration of board) {
+          if (secondRowIteration[columnIndex] === value) {
+            consecutiveMatchCount++;
+          } else {
+            consecutiveMatchCount = 0;
+          }
+        }
+      }
+    }
+    if (consecutiveMatchCount === 4) return true;
+  }
+  return false;
+}
+
+function checkDiagonal({ board, value, up }) {
+  // iterating the board and getting index
+  for (let [rowIndex, row] of board.entries()) {
+    // iterating the row and getting index
+    for (let [columnIndex, dot] of row.entries()) {
+      if (dot === value) {
+        let consecutiveMatchCount = 0;
+        // while the following element of the diagonal equals the value
+        while (board[rowIndex]?.[columnIndex] === value) {
+          consecutiveMatchCount++;
+          if (consecutiveMatchCount === 4) return true;
+          // going up and right
+          if (up) {
+            rowIndex--;
+            columnIndex++;
+            // going down and right
+          } else {
+            rowIndex++;
+            columnIndex++;
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function checkWinFromPlayer(board, value) {
+  return (
+    checkDiagonal({ board, up: true, value }) ||
+    checkDiagonal({ board, up: false, value }) ||
+    checkRow({ board, value }) ||
+    checkColumn({ board, value })
+  );
 }
 
 function winCheck(board, players, rows) {
@@ -167,14 +220,8 @@ function winCheck(board, players, rows) {
   }
   //rest
   let winner = null
-  board.forEach((row, indexRow) => {
-    winner = checkRow({row, value: 1}) ? players[0] : checkRow({row, value: 2}) ? players[1] : winner;
-    row.forEach((_, indexColumn) => {
-      winner = checkColumn({board, indexColumn, value: 1}) ? players[0] : checkColumn({board, indexColumn, value: 2}) ? players[1] : winner;
-      winner = checkDiagonal({board, indexRow, indexColumn, value: 1, up: true}) ? players[0] : checkDiagonal({board, indexRow, indexColumn, value: 2, up: true}) ? players[1] : winner;
-      winner = checkDiagonal({board, indexRow, indexColumn, value: 1, up: false}) ? players[0] : checkDiagonal({board, indexRow, indexColumn, value: 2, up: false}) ? players[1] : winner;
-    })
-  })
+  if(checkWinFromPlayer(board, 1)) winner = players[0]
+  if(checkWinFromPlayer(board, 2)) winner = players[1]
 
 
   //return states
