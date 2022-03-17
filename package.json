@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.1",
     "colorette": "^2.0.16",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",

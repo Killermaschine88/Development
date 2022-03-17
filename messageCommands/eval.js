@@ -26,7 +26,9 @@ module.exports = {
     (async () => {
 
       try {
-        const evaled = await eval(input)
+        const evaled = await eval(`(async () => { return ${input} })().catch(e => { return "Error: " + e })`)
+
+       // console.log(evaled)
 
         return message.channel.send({embeds:[await sucEmbed(evaled, message, input)]});
       } catch (err) {
