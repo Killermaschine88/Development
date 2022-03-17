@@ -1,19 +1,18 @@
 module.exports = {
-	name: 'reload',
+  name: "reload",
   devOnly: true,
-  alias: ['rl'],
-	async execute(message, args, client) {
-
+  alias: ["rl"],
+  async execute(message, args, client) {
     //Imports
 
     //Code
-      for (const path in require.cache) {
-        if (path.endsWith('.js')) {
-          delete require.cache[path]
-        }
+    for (const path in require.cache) {
+      if (path.endsWith(".js")) {
+        delete require.cache[path];
       }
+    }
 
-      client.reload(client)
-      await message.channel.send('Reloaded')
-	},
+    client.reload(client);
+    await message.channel.send("Reloaded");
+  },
 };

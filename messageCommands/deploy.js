@@ -1,14 +1,13 @@
 module.exports = {
-	name: 'deploy',
+  name: "deploy",
   devOnly: true,
-  alias: ['dp'],
-	async execute(message, args, client) {
-
+  alias: ["dp"],
+  async execute(message, args, client) {
     //Imports
-    const { commands } = require('../constants/client/commands.js')
+    const { commands } = require("../constants/client/commands.js");
 
     //Code
-      await client.guilds.cache.get('944141746483372143')?.commands.set(commands)
-			message.channel.send('Commands deployed.')
-	},
+    await client.guilds.cache.get("944141746483372143")?.commands.set(commands);
+    message.channel.send("Commands deployed.");
+  },
 };

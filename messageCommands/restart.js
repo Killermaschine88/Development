@@ -1,14 +1,13 @@
 module.exports = {
-	name: 'restart',
+  name: "restart",
   devOnly: true,
-  alias: ['rs'],
-	async execute(message, args, client) {
-
+  alias: ["rs"],
+  async execute(message, args, client) {
     //Imports
-    const { execShell } = require('../constants/functions/util.js')
+    const { execShell } = require("../constants/functions/util.js");
 
     //Code
-    await message.channel.send('Restarting . . .')
-		execShell('kill 1')
-	},
+    await message.channel.send("Restarting . . .");
+    execShell("kill 1");
+  },
 };
