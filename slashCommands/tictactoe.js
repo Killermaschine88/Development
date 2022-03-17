@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const checkmark = "✅";
 const cross = "❌";
+const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
 
 module.exports = {
   name: "tictactoe",
@@ -10,22 +11,18 @@ module.exports = {
     const Discord = require("discord.js");
     const checkmark = "✅";
     const cross = "❌";
+    const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
 
     //Code
     const opponent = interaction.options.getUser("opponent");
 
-    if (opponent.bot) {
-      return await interaction.editReply(`Can't play against \`${opponent.tag}\` as they are a bot.`);
+    const check = gameStartCheck(interaction, opponent)
+
+    if(check.state) {
+      return await interaction.editReply(check.reason)
     }
 
-    if (interaction.user.id === opponent.id) {
-      return await interaction.editReply(`You can't play against yourself.`);
-    }
-
-    //notify user someone challenged them
-    await interaction.channel.send({
-      content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you to a game of TicTacToe.`,
-    });
+     await interaction.channel.send(notifyPlayers(interaction, opponent, 'TicTacToe'))
 
     const embed = new Discord.MessageEmbed().setTitle("TicTacToe Match").setColor("GREEN").setDescription(`Current turn: \`${interaction.user.tag}\`\n\n\`${interaction.user.tag}: ${checkmark}\`\n\`${opponent.tag}: ${cross}\``);
 

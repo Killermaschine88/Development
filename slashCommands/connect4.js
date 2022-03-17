@@ -1,3 +1,9 @@
+const Discord = require("discord.js");
+const red = "🔴";
+const yellow = "🟡";
+const empty = "⚫";
+const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
+
 module.exports = {
   name: "connect4",
   devOnly: false,
@@ -7,17 +13,18 @@ module.exports = {
     const red = "🔴";
     const yellow = "🟡";
     const empty = "⚫";
+    const { gameStartCheck, notifyPlayers } = require('../constants/functions/game.js')
 
     //Code
     const opponent = interaction.options.getUser("opponent");
 
-    if (opponent.bot) {
-      return await interaction.editReply(`Can't play against \`${opponent.tag}\` as they are a bot.`);
+    const check = gameStartCheck(interaction, opponent)
+
+    if(check.state) {
+      return await interaction.editReply(check.reason)
     }
 
-    if (interaction.user.id === opponent.id) {
-      return await interaction.editReply(`You can't play against yourself.`);
-    }
+    await interaction.channel.send(notifyPlayers(interaction, opponent, 'Connect4'));
 
     let board = [
       [0, 0, 0, 0, 0, 0, 0],
@@ -55,9 +62,6 @@ module.exports = {
     const message = await interaction.editReply({
       embeds: [embed],
       components: rows,
-    });
-    await interaction.channel.send({
-      content: `Hey <@${opponent.id}>, <@${interaction.user.id}> challenged you to a game of Connect4.`,
     });
 
     const collector = message.createMessageComponentCollector({
