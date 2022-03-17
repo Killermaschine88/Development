@@ -1,6 +1,3 @@
-//Imports
-const { commands } = require('../constants/client/commands.js')
-
 module.exports = {
 	name: 'deploy',
   devOnly: true,

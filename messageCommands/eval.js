@@ -1,8 +1,3 @@
-//Imports
-const Discord = require('discord.js');
-const pms = require('pretty-ms');
-const sourcebin = require('sourcebin');
-
 module.exports = {
 	name: 'eval',
   devOnly: true,

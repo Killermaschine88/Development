@@ -1,8 +1,3 @@
-const Discord = require('discord.js')
-const red = '🔴'
-const yellow = '🟡'
-const empty = '⚫'
-
 module.exports = {
   name: "connect4",
   devOnly: false,

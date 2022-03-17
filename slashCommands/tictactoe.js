@@ -1,7 +1,3 @@
-const Discord = require('discord.js')
-const checkmark = '✅'
-const cross = '❌'
-
 module.exports = {
   name: "tictactoe",
   devOnly: false,
