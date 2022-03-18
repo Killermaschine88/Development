@@ -2,3 +2,5 @@ node_modules/
 package.json
 package-lock.json
 README.md
+.cache/
+.prettierrc.json

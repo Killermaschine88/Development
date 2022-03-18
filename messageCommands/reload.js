@@ -3,9 +3,6 @@ module.exports = {
   devOnly: true,
   alias: ["rl"],
   async execute(message, args, client) {
-    //Imports
-
-    //Code
     for (const path in require.cache) {
       if (path.endsWith(".js")) {
         delete require.cache[path];

@@ -8,14 +8,6 @@ module.exports = {
   name: "connect4",
   devOnly: false,
   async execute(interaction) {
-    //Importing
-    const Discord = require("discord.js");
-    const red = "🔴";
-    const yellow = "🟡";
-    const empty = "⚫";
-    const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
-
-    //Code
     const opponent = interaction.options.getUser("opponent");
 
     const check = gameStartCheck(interaction, opponent);

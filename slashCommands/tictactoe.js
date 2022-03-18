@@ -7,13 +7,6 @@ module.exports = {
   name: "tictactoe",
   devOnly: false,
   async execute(interaction) {
-    //Importing
-    const Discord = require("discord.js");
-    const checkmark = "✅";
-    const cross = "❌";
-    const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
-
-    //Code
     const opponent = interaction.options.getUser("opponent");
 
     const check = gameStartCheck(interaction, opponent);

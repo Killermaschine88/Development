@@ -1,14 +1,12 @@
+const Discord = require("discord.js");
+const pms = require("pretty-ms");
+const sourcebin = require("sourcebin");
+
 module.exports = {
   name: "eval",
   devOnly: true,
   alias: ["ev", "e"],
   async execute(message, args, client) {
-    //Imports
-    const Discord = require("discord.js");
-    const pms = require("pretty-ms");
-    const sourcebin = require("sourcebin");
-
-    //Code
     if (message.author.id !== client.application?.owner.id) return;
 
     if (args.length === 0) {
@@ -20,8 +18,6 @@ module.exports = {
     (async () => {
       try {
         const evaled = await eval(`(async () => { return ${input} })().catch(e => { return "Error: " + e })`);
-
-        // console.log(evaled)
 
         return message.channel.send({
           embeds: [await sucEmbed(evaled, message, input)],

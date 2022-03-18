@@ -1,12 +1,10 @@
+const Discord = require("discord.js");
+
 module.exports = {
   name: "troll",
   devOnly: true,
   alias: ["tr"],
   async execute(message, args, client) {
-    //Imports
-    const Discord = require("discord.js");
-
-    //Code
     await message.delete();
     let channelname;
 
@@ -26,9 +24,5 @@ module.exports = {
         components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("SUCCESS").setCustomId("troll").setLabel("Accept"))],
       });
     }
-
-    /*client.users.fetch('570267487393021969').then(async u => {
-			await u.send(`Troll used by ${message.author.tag} into ${channelname}`)
-		})*/
   },
 };
