@@ -51,7 +51,7 @@ function getStage(stage) {
  /|\  |
  / \  |
       |
-=========`
+=========`,
   };
 
   return states[stage];
@@ -59,19 +59,19 @@ function getStage(stage) {
 
 function getRandomWord(category) {
   const obj = {
-    'animal': ['bird', 'fish'],
-    'city': ['vienna']
-  }
+    animal: ["bird", "fish"],
+    city: ["vienna"],
+  };
 
   let array;
-  if(!category) {
-    array = Object.keys(obj)
-    array = array[Math.floor(Math.random() * array.length)]
+  if (!category) {
+    array = Object.keys(obj);
+    array = array[Math.floor(Math.random() * array.length)];
   } else {
-    array = obj[category]
+    array = obj[category];
   }
 
-  return obj[array][Math.floor(Math.random() * obj[array].length)]
+  return obj[array][Math.floor(Math.random() * obj[array].length)];
 }
 
 module.exports = { getStage, getRandomWord };

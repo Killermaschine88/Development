@@ -31,6 +31,16 @@ const commands = [
         name: "category",
         description: "the category the word should be from",
         type: "STRING",
+        choices: [
+          {
+            name: 'animal',
+            value: 'animal',
+          },
+          {
+            name: 'city',
+            value: 'city',
+          }
+        ],
       },
     ],
   },

@@ -8,7 +8,7 @@ module.exports = {
   async execute(interaction) {
     const category = interaction.options.getString("category");
 
-    const word = getRandomWord(category).split('')
+    const word = getRandomWord(category).split("");
 
     let guessWord = [];
     let i = 0;
@@ -20,7 +20,7 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setTitle("Hangman Game")
       .setColor("GREEN")
-      .setDescription(`Category: ${!category ? 'all' : category}\nWord: \`${guessWord.join("")}\``);
+      .setDescription(`Category: ${!category ? "all" : category}\nWord: \`${guessWord.join("")}\``);
 
     const rows = [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("PRIMARY").setLabel("Guess Letter").setCustomId("guessLetter"), new Discord.MessageButton().setStyle("PRIMARY").setLabel("Guess Word").setCustomId("guessWord"))];
 
@@ -69,9 +69,7 @@ module.exports = {
           }
         }
 
-        embed.setDescription(`${getStage(wrongGuess)}\n\nWord: \`${guessWord.join("")}\``);
-
-        console.log(getStage(wrongGuess))
+        embed.setDescription(`${getStage(wrongGuess)}\n\nCategory: ${!category ? "all" : category}\nWord: \`${guessWord.join("")}\``);
 
         const check = winCheck(guessWord, wrongGuess);
 
@@ -80,12 +78,12 @@ module.exports = {
           return collector.stop();
         } else if (check.state === "Lost") {
           embed.setColor("RED");
-          embed.addField("​", `**Lost**, the word was \`${word.join('')}\``);
+          embed.addField("​", `**Lost**, the word was \`${word.join("")}\``);
           return collector.stop();
         } else {
           guessedLetters.push(letter);
 
-          embed.setDescription(`${getStage(wrongGuess)}\n\nWord: \`${guessWord.join("")}\``);
+          embed.setDescription(`${getStage(wrongGuess)}\n\nCategory: ${!category ? "all" : category}\nWord: \`${guessWord.join("")}\``);
           await interaction.editReply({ embeds: [embed], components: rows });
         }
       } else if (i.customId === "guessWord") {
@@ -95,7 +93,7 @@ module.exports = {
 
         if (words === word.join("")) {
           embed.addField("​", "**Won**");
-          embed.setDescription(`${getStage(wrongGuess)}\n\nWord: \`${words}\``);
+          embed.setDescription(`${getStage(wrongGuess)}\n\nCategory: ${!category ? "all" : category}\nWord: \`${words}\``);
           return collector.stop();
         } else {
           wrongGuess++;
