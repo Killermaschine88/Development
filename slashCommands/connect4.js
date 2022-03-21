@@ -64,10 +64,8 @@ module.exports = {
     let current_turn_id = interaction.user.id;
 
     collector.on("collect", async (i) => {
+      if (i.user.id !== current_turn_id) return;
       await i.deferUpdate();
-      if (i.user.id !== current_turn_id) {
-        return;
-      }
 
       board = updateBoard(board, i.customId.charAt(0), current_turn_id, interaction);
       embed.setDescription(`Current Turn: \`${players[`${i.user.id === interaction.user.id ? 1 : 0}`]}\`\n\n${renderBoard(board)}`);

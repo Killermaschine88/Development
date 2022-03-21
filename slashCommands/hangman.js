@@ -37,8 +37,8 @@ module.exports = {
     let guessedLetters = [];
 
     collector.on("collect", async (i) => {
-      await i.deferUpdate();
       if (i.user.id !== interaction.user.id) return;
+      await i.deferUpdate();
       await interaction.editReply({ components: rows1 });
 
       if (i.customId === "guessLetter") {

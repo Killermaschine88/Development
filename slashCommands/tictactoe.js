@@ -47,10 +47,8 @@ module.exports = {
     let current_turn_id = interaction.user.id;
 
     collector.on("collect", async (i) => {
+      if (i.user.id !== current_turn_id) return;
       await i.deferUpdate();
-      if (i.user.id !== current_turn_id) {
-        return;
-      }
 
       const index1 = i.customId.charAt(0);
       const index2 = i.customId.charAt(1);
