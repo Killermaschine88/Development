@@ -6,6 +6,7 @@ module.exports = {
     //Code
     if (!message.content.startsWith(process.env.PREFIX || "?")) return;
     if (message.author.bot) return;
+    if (message.channel.parent.id === "954349475151888424") return;
 
     const args = message.content
       .slice(process.env.PREFIX || "?")

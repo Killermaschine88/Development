@@ -23,6 +23,17 @@ const commands = [
       },
     ],
   },
+  {
+    name: "hangman",
+    description: "play hangman",
+    options: [
+      {
+        name: "category",
+        description: "the category the word should be from",
+        type: "STRING",
+      },
+    ],
+  },
 ];
 
 module.exports = { commands };
