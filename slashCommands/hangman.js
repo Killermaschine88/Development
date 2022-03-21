@@ -80,7 +80,7 @@ module.exports = {
           return collector.stop();
         } else if (check.state === "Lost") {
           embed.setColor("RED");
-          embed.addField("​", "**Lost**");
+          embed.addField("​", `**Lost**, the word was \`${word.join('')}\``);
           return collector.stop();
         } else {
           guessedLetters.push(letter);
