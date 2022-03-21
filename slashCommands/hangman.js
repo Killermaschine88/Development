@@ -46,9 +46,11 @@ module.exports = {
         const letter = (await getMessageInput(interaction)).toLowerCase();
         await m.delete();
         if (guessedLetters.includes(letter)) {
-          return await interaction.followUp({ content: `You already guessed \`${letter}\`.`, ephemeral: true });
+          await interaction.editReply({ embeds: [embed], components: rows });
+          return await interaction.followUp({ content: `You already guesssed \`${letter}\``, ephemeral: true });
         }
         if (letter?.length !== 1) {
+          await interaction.editReply({ embeds: [embed], components: rows });
           return await interaction.followUp({ content: "Can't guess multiple letters at once.", ephemeral: true });
         }
         if (!letter) {
