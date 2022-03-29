@@ -33,17 +33,21 @@ const commands = [
         type: "STRING",
         choices: [
           {
-            name: 'animal',
-            value: 'animal',
+            name: "animal",
+            value: "animal",
           },
           {
-            name: 'city',
-            value: 'city',
-          }
+            name: "city",
+            value: "city",
+          },
         ],
       },
     ],
   },
+  {
+    name: 'test',
+    description: 'test'
+  }
 ];
 
 module.exports = { commands };

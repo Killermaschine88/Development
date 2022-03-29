@@ -12,4 +12,8 @@ function execShell(str) {
   });
 }
 
-module.exports = { sleep, execShell };
+function count() {
+  return '2'
+}
+
+module.exports = { sleep, execShell, count };

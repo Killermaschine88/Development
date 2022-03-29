@@ -5,7 +5,7 @@ module.exports = {
   devOnly: true,
   alias: ["dp"],
   async execute(message, args, client) {
-    await client.guilds.cache.get("944141746483372143")?.commands.set(commands);
+    await client.guilds.cache.get(message.guild.id)?.commands.set(commands);
     message.channel.send("Commands deployed.");
   },
 };
