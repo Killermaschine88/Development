@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const { getStage, getRandomWord } = require("../constants/functions/hangman.js");
-const { getMessageInput } = require("../constants/functions/game.js");
+const { getStage, getRandomWord } = require("../constants/functions/games/hangman.js");
+const { getMessageInput } = require("../constants/functions/games/game.js");
 
 module.exports = {
   name: "hangman",

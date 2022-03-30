@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const red = "🔴";
 const yellow = "🟡";
 const empty = "⚫";
-const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
+const { gameStartCheck, notifyPlayers } = require("../constants/functions/games/game.js");
 
 module.exports = {
   name: "connect4",

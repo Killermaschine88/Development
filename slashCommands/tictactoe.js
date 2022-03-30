@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const checkmark = "✅";
 const cross = "❌";
-const { gameStartCheck, notifyPlayers } = require("../constants/functions/game.js");
+const { gameStartCheck, notifyPlayers } = require("../constants/functions/games/game.js");
 
 module.exports = {
   name: "tictactoe",
