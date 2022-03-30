@@ -1,10 +1,10 @@
 module.exports = {
   name: "ready",
   async execute(client) {
-    //Imports
-
-    //Code
     log(`Logged into Discord`);
+    client.user.setActivity("Error Logs", {
+      type: "WATCHING",
+    });
     await client.application.fetch();
   },
 };

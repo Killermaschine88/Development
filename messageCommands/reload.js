@@ -9,7 +9,11 @@ module.exports = {
       }
     }
 
-    client.reload(client);
-    await message.channel.send("Reloaded");
+    try {
+      client.reload(client);
+      await message.channel.send("Reloaded");
+    } catch(e) {
+      await message.channel.send(`\`\`\`js\n${e.stack}\`\`\``);
+    }
   },
 };

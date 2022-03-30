@@ -45,9 +45,9 @@ const commands = [
     ],
   },
   {
-    name: 'test',
-    description: 'test'
-  }
+    name: "worlde",
+    description: "play wordle",
+  },
 ];
 
 module.exports = { commands };

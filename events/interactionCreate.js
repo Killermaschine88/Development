@@ -1,9 +1,6 @@
 module.exports = {
   name: "interactionCreate",
   async execute(interaction) {
-    //Imports
-
-    //Code
     //Slash Commands
     if (interaction.isCommand()) {
       let commandExecute = interaction.commandName;

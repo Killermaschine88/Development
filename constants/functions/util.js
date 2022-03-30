@@ -1,5 +1,4 @@
 const { exec } = require("child_process");
-const { num } = require('./test.js')
 
 const sleep = async (ms) => {
   return new Promise((resolve) => {
@@ -13,8 +12,4 @@ function execShell(str) {
   });
 }
 
-function count() {
-  return num
-}
-
-module.exports = { sleep, execShell, count };
+module.exports = { sleep, execShell };

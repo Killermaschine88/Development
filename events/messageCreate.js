@@ -1,7 +1,6 @@
 module.exports = {
   name: "messageCreate",
   async execute(message, client) {
-    
     if (!message.content.startsWith(process.env.PREFIX || "?")) return;
     if (message.author.bot) return;
     if (message.channel.parent.id === "954349475151888424") return;
@@ -50,7 +49,7 @@ async function getTicketUsers(channel) {
       collections.push(collection);
     }
   }
-  
+
   for (const coll of collections) {
     coll.forEach((m) => {
       const user = users.find((u) => u.id === m.author.id);
@@ -61,7 +60,7 @@ async function getTicketUsers(channel) {
       }
     });
   }
-  
+
   users = users.sort((a, b) => b.messages - a.messages);
   let str = "";
   for (const user of users) {
