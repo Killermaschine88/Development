@@ -12,7 +12,7 @@ module.exports = {
     try {
       client.reload(client);
       await message.channel.send("Reloaded");
-    } catch(e) {
+    } catch (e) {
       await message.channel.send(`\`\`\`js\n${e.stack}\`\`\``);
     }
   },

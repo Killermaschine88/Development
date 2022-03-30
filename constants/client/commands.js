@@ -1,5 +1,9 @@
 const commands = [
   {
+    name: "test",
+    description: "test command",
+  },
+  {
     name: "tictactoe",
     description: "play tictactoe",
     options: [
@@ -43,10 +47,6 @@ const commands = [
         ],
       },
     ],
-  },
-  {
-    name: "worlde",
-    description: "play wordle",
   },
 ];
 

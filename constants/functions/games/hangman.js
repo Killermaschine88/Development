@@ -58,7 +58,8 @@ function getStage(stage) {
 }
 
 function getRandomWord(category) {
-  const obj = { //add wordds when i feel like it
+  const obj = {
+    //add wordds when i feel like it
     animal: ["bird", "fish"],
     city: ["vienna"],
   };
