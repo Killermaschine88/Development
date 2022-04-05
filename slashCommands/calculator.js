@@ -5,7 +5,7 @@ module.exports = {
   name: "calculator",
   devOnly: false,
   async execute(interaction) {
-    const message = await interaction.editReply({ content: "0", components: rows });
+    const message = await interaction.editReply({ content: `\`\`\`\n0\`\`\``, components: rows });
 
     const collector = message.createMessageComponentCollector({
       componentType: "BUTTON",
@@ -22,7 +22,7 @@ module.exports = {
       str = res.str !== "" ? res.str : "0";
       ans = res.ans !== "" ? res.ans : "0";
 
-      await interaction.editReply({ content: str });
+      await interaction.editReply({ content: `\`\`\`\n${str}\`\`\`` });
     });
 
     collector.on("end", async () => {

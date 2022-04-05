@@ -49,7 +49,8 @@ function calculate(id, str, ans) {
 }
 
 function parse(str) {
-  str = str.replace('^', '**')
+  str = str.replaceAll('^', '**')
+  console.log(str)
   return Function(`'use strict'; return (${str})`)();
 }
 
