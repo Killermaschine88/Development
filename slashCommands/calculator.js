@@ -28,7 +28,7 @@ module.exports = {
     });
 
     collector.on("end", async () => {
-      await interaction.editReply({ components: [] });
+      await interaction.editReply({ content: 'Calculator expired', components: [] });
     });
   },
 };
