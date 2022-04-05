@@ -19,8 +19,8 @@ module.exports = {
       if (i.user.id !== interaction.user.id) return;
       await i.deferUpdate();
       const res = calculate(i.customId, str, ans);
-      str = res.str === '' ? '0' : res.str
-      ans = res.ans === '' ? '0' : res.ans
+      str = res.str !== '' ? res.str : '0'
+      ans = res.ans !== '' ? res.ans : '0'
 
       await interaction.editReply({ content: str });
     });
