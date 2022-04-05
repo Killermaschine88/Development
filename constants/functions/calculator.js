@@ -1,13 +1,24 @@
 const Discord = require("discord.js");
 
-const row1 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("PRIMARY").setLabel("ans").setCustomId("ans").setDisabled(true), new Discord.MessageButton().setStyle("PRIMARY").setLabel("(").setCustomId("("), new Discord.MessageButton().setStyle("PRIMARY").setLabel(")").setCustomId(")"), new Discord.MessageButton().setStyle("PRIMARY").setLabel("AC").setCustomId("AC"));
-const row2 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("SECONDARY").setLabel("7").setCustomId("7"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("8").setCustomId("8"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("9").setCustomId("9"), new Discord.MessageButton().setStyle("PRIMARY").setLabel("/").setCustomId("/"));
-const row3 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("SECONDARY").setLabel("4").setCustomId("4"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("5").setCustomId("5"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("6").setCustomId("6"), new Discord.MessageButton().setStyle("PRIMARY").setLabel("*").setCustomId("*"));
-const row4 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("SECONDARY").setLabel("1").setCustomId("1"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("2").setCustomId("2"), new Discord.MessageButton().setStyle("SECONDARY").setLabel("3").setCustomId("3"), new Discord.MessageButton().setStyle("PRIMARY").setLabel("-").setCustomId("-"));
-const row5 = new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setStyle("SECONDARY").setLabel("0").setCustomId("0"), new Discord.MessageButton().setStyle("SECONDARY").setLabel(".").setCustomId("."), new Discord.MessageButton().setStyle("SUCCESS").setLabel("=").setCustomId("="), new Discord.MessageButton().setStyle("PRIMARY").setLabel("+").setCustomId("+"));
+const rows = [new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow(), new Discord.MessageActionRow()];
+let j = 0
+let arr = ['ans', '(', ')', 'AC', '7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+']
+for(const row of rows) {
+  for(let i = 0; i < 4; i++) {
+    row.components.push(new Discord.MessageButton().setStyle(getStyle(arr[j])).setLabel(arr[j]).setCustomId(arr[j]))
+    j++
+  }
+}
 
-const rows = [];
-rows.push(row1, row2, row3, row4, row5);
+function getStyle(input) {
+  if(['ans', '(', ')', 'AC', '/', '*', '-', '+'].includes(input)) {
+    return "PRIMARY"
+  } else if(input === '=') {
+    return "SUCCESS"
+  } else {
+    return "SECONDARY"
+  }
+}
 
 function calculate(id, str, ans) {
   str = str ? str : "";
@@ -16,9 +27,12 @@ function calculate(id, str, ans) {
   if (id === "AC") {
     return { str: null, ans: null };
   } else if (id === "=") {
-    const res = parse(str);
-    ans = res;
-    str = res;
+    try {
+      ans = parse(str)
+      str = parse(str)
+    } catch (e) {
+      return { str: null, ans: null }
+    }
     return { str: `${str}`, ans: `${ans}` };
   } else if (id === "ans") {
     return { str: `${(str += ans)}`, ans: `${ans}` };
