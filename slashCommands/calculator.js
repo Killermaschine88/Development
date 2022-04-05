@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-let { rows, calculate, checkRows } = require("../constants/functions/calculator.js");
+let { rows, calculate } = require("../constants/functions/calculator.js");
 
 module.exports = {
   name: "calculator",
