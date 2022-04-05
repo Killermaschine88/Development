@@ -21,17 +21,17 @@ function getStyle(input) {
 }
 
 function calculate(id, str, ans) {
-  str = str ? str : "";
-  ans = ans ? ans : "";
+  str = str !== '0' ? str : "";
+  ans = ans !== '0' ? ans : "";
 
   if (id === "AC") {
-    return { str: null, ans: null };
+    return { str: '0', ans: '0' };
   } else if (id === "=") {
     try {
       ans = parse(str)
       str = parse(str)
     } catch (e) {
-      return { str: null, ans: null }
+      return { str: '0', ans: '0' }
     }
     return { str: `${str}`, ans: `${ans}` };
   } else if (id === "ans") {
@@ -45,13 +45,4 @@ function parse(str) {
   return Function(`'use strict'; return (${str})`)();
 }
 
-function checkRows(rows, ans) {
-  if(ans === null || ans === '') {
-    rows[0].components[0].disabled = true
-  } else {
-    rows[0].components[0].disabled = false
-  }
-  return rows
-}
-
-module.exports = { rows, calculate, checkRows };
+module.exports = { rows, calculate };

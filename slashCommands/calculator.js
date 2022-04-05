@@ -5,15 +5,15 @@ module.exports = {
   name: "calculator",
   devOnly: false,
   async execute(interaction) {
-    const message = await interaction.editReply({ content: null, components: rows });
+    const message = await interaction.editReply({ content: '0', components: rows });
 
     const collector = message.createMessageComponentCollector({
       componentType: "BUTTON",
       time: 5 * 60000,
     });
 
-    let str = null;
-    let ans = null;
+    let str = '0';
+    let ans = '0';
 
     collector.on("collect", async (i) => {
       if (i.user.id !== interaction.user.id) return;
@@ -22,9 +22,7 @@ module.exports = {
       str = res.str;
       ans = res.ans;
 
-      rows = checkRows(rows, ans)
-
-      await interaction.editReply({ content: str, components: rows });
+      await interaction.editReply({ content: str });
     });
 
     collector.on("end", async () => {
