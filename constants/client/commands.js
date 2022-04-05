@@ -1,8 +1,16 @@
 const commands = [
-  {
-    name: "test",
-    description: "test command",
-  },
+  /*{
+    name: "create-embed",
+    description: "create an embed or fetch one via link",
+    options: [
+      {
+        name: "link",
+        description: "starb.in or discord message link",
+        type: "STRING",
+        required: true,
+      },
+    ],
+  },*/
   {
     name: "tictactoe",
     description: "play tictactoe",
@@ -47,6 +55,10 @@ const commands = [
         ],
       },
     ],
+  },
+  {
+    name: "calculator",
+    description: "Pull out the Calculator",
   },
 ];
 

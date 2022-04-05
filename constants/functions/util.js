@@ -24,8 +24,8 @@ async function getMessageInput(interaction) {
       errors: ["time"],
     })
     .then((collected) => {
-      m = collected.first()?.content
-      collected.first().delete()
+      m = collected.first()?.content;
+      collected.first().delete();
     })
     .catch((collected) => {
       m = null;

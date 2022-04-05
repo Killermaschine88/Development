@@ -4,7 +4,6 @@ module.exports = {
   devOnly: false,
   alias: [],
   async execute(param) {
-    //Importing
     //Code
   },
 };
@@ -14,7 +13,6 @@ module.exports = {
   name: "commandName",
   devOnly: false,
   async execute(param) {
-    //Importing
     //Code
   },
 };
