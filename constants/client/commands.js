@@ -60,6 +60,10 @@ const commands = [
     name: "calculator",
     description: "Pull out the Calculator",
   },
+  {
+    name: "game",
+    description: "Play a game",
+  },
 ];
 
 module.exports = { commands };

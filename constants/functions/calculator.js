@@ -10,16 +10,16 @@ for (const row of rows) {
   }
 }
 //manual added for the time being
-rows[0].components.push(new Discord.MessageButton().setStyle(getStyle('⬅')).setLabel('⬅').setCustomId('⬅'))
-rows[1].components.push(new Discord.MessageButton().setStyle(getStyle('^')).setLabel('^').setCustomId('^'))
+rows[0].components.push(new Discord.MessageButton().setStyle(getStyle("⬅")).setLabel("⬅").setCustomId("⬅"));
+rows[1].components.push(new Discord.MessageButton().setStyle(getStyle("^")).setLabel("^").setCustomId("^"));
 
 function getStyle(input) {
   if (["ans", "(", ")", "/", "*", "-", "+", "^"].includes(input)) {
     return "PRIMARY";
   } else if (input === "=") {
     return "SUCCESS";
-  } else if (['⬅', "AC"].includes(input)) {
-    return "DANGER"
+  } else if (["⬅", "AC"].includes(input)) {
+    return "DANGER";
   } else {
     return "SECONDARY";
   }
@@ -41,15 +41,15 @@ function calculate(id, str, ans) {
     return { str: `${str}`, ans: `${ans}` };
   } else if (id === "ans") {
     return { str: `${(str += ans)}`, ans: `${ans}` };
-  } else if(id === '⬅') {
-    return { str: `${str.slice(0, -1)}`, ans: `${ans}`}
+  } else if (id === "⬅") {
+    return { str: `${str.slice(0, -1)}`, ans: `${ans}` };
   } else {
     return { str: `${(str += id)}`, ans: `${ans}` };
   }
 }
 
 function parse(str) {
-  str = str.replaceAll('^', '**')
+  str = str.replaceAll("^", "**");
   return Function(`'use strict'; return (${str})`)();
 }
 
