@@ -8,7 +8,7 @@ module.exports = {
   devOnly: false,
   async execute(interaction) {
     await interaction.editReply("Started generating Map...");
-    let map = new GameMap({ height: 2500, width: 2500 })
+    let map = new GameMap({ height: 2500, width: 2500 });
 
     const embed = new Discord.MessageEmbed().setDescription(map.renderMap(3)).setColor("GREEN");
 

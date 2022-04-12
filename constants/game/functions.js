@@ -33,11 +33,8 @@ class GameMap {
 
     array[y][x] = 2;
 
-    (this.map = array),
-      (this.pos = {
-        x: x,
-        y: y,
-      });
+    this.map = array;
+    this.pos = { x: x, y: y };
   }
 
   getView(distance) {
