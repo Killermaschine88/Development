@@ -177,19 +177,22 @@ function checkDiagonal({ board, value, up }) {
     // iterating the row and getting index
     for (let [columnIndex, dot] of row.entries()) {
       if (dot === value) {
+        let rowIndexValue = rowIndex
+        // Creating index holders
+        let columnIndexValue = columnIndex
         let consecutiveMatchCount = 0;
         // while the following element of the diagonal equals the value
-        while (board[rowIndex]?.[columnIndex] === value) {
+        while (board[rowIndexValue]?.[columnIndexValue] === value) {
           consecutiveMatchCount++;
           if (consecutiveMatchCount === 4) return true;
           // going up and right
           if (up) {
-            rowIndex--;
-            columnIndex++;
+            rowIndexValue--;
+            columnIndexValue++;
             // going down and right
           } else {
-            rowIndex++;
-            columnIndex++;
+            rowIndexValue++;
+            columnIndexValue++;
           }
         }
       }
