@@ -15,8 +15,8 @@ const client = new Discord.Client({
 
 client.login(process.env.DISCORD_TOKEN);
 
-const { connectMongo } = require('./constants/client/mongo.js')
-client.mongo = connectMongo()
+const { connectMongo } = require("./constants/client/mongo.js");
+client.mongo = connectMongo();
 
 //Imports
 const fs = require("fs");

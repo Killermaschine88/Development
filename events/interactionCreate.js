@@ -12,14 +12,13 @@ module.exports = {
       const command = interaction.client.slashCommands.get(commandExecute);
 
       if (command.devOnly && interaction.user.id !== interaction.client.application?.owner?.id) {
-        await interaction.reply("This command is Dev only.");
-        return;
+        return await interaction.reply("This command is Dev only.");
       }
 
-      await checkDB(interaction)
+      await checkDB(interaction);
 
       try {
-        await interaction.deferReply();
+        await interaction.deferReply({ ephemeral: command?.ephemeral ? true : false });
         command.execute(interaction);
       } catch (e) {
         log(e, "ERROR");
@@ -45,11 +44,16 @@ module.exports = {
 };
 
 async function checkDB(int) {
-  int.client.mongo.db("DEV").collection("game").updateOne(
-    { _id: int.user.id },
-    { $set: {
-      tag: int.user.tag
-    }},
-    { upsert: true }
-  )
+  int.client.mongo
+    .db("DEV")
+    .collection("game")
+    .updateOne(
+      { _id: int.user.id },
+      {
+        $set: {
+          tag: int.user.tag,
+        },
+      },
+      { upsert: true }
+    );
 }
