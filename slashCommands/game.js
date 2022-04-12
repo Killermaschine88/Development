@@ -7,23 +7,36 @@ module.exports = {
   name: "game",
   devOnly: false,
   async execute(interaction) {
-    let obj = generateMap({ width: 5, height: 5 });
+    await interaction.editReply("Started generating Map...")
+    let obj = generateMap({ width: 2500, height: 2500 });
 
-    const embed = new Discord.MessageEmbed().setDescription(renderMap(obj, 3));
+    const embed = new Discord.MessageEmbed().setDescription(renderMap(obj, 3)).setColor("GREEN");
 
-    const msg = await interaction.editReply({ embeds: [embed], components: rows });
+    const msg = await interaction.editReply({ content: null, embeds: [embed], components: rows });
 
     const collector = msg.createMessageComponentCollector({
       componentType: "BUTTON",
-      time: 10 * 60 * 1000,
+      time: 14 * 60 * 1000,
     });
+
+    let stats = {
+      steps: 0,
+      treasures: 0
+    }
 
     collector.on("collect", async (i) => {
       if (i.user.id !== interaction.user.id) return;
       await i.deferUpdate();
 
       if (["up", "down", "left", "right"].includes(i.customId)) {
-        obj = handleMovementButtonClick(obj, i);
+        const returned = handleMovementButtonClick(obj, i);
+        obj = returned.obj
+        
+        if(returned.walkedOn === 0) { //Grass
+          stats.steps++
+        } else if(returned.walkedOn === 3) { //Treasure
+          stats.treasures++
+        }
       }
 
       if (i.customId === "cancel") {
@@ -31,12 +44,15 @@ module.exports = {
       }
 
       embed.setDescription(renderMap(obj, 3));
+      embed.fields = []
+      embed.addField("Stats", `Steps taken: ${stats.steps}\nTreasures found: ${stats.treasures}`)
 
       await interaction.editReply({ embeds: [embed] });
     });
 
-    collector.on("stop", async () => {
-      return await interaction.editReply({ components: [] });
+    collector.on("end", async () => {
+      embed.setColor("RED")
+      return await interaction.editReply({ embeds: [embed], components: [] });
     });
   },
 };

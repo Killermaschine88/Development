@@ -16,6 +16,8 @@ module.exports = {
         return;
       }
 
+      await checkDB(interaction)
+
       try {
         await interaction.deferReply();
         command.execute(interaction);
@@ -37,10 +39,17 @@ module.exports = {
           ephemeral: true,
           content: "<:troll:926607514999615499>",
         });
-        /*interaction.client.users.fetch('570267487393021969').then(async u => {
-          await u.send(`Rickrolled ${interaction.user.tag}`)
-        })*/
       }
     }
   },
 };
+
+async function checkDB(int) {
+  int.client.mongo.db("DEV").collection("game").updateOne(
+    { _id: int.user.id },
+    { $set: {
+      tag: int.user.tag
+    }},
+    { upsert: true }
+  )
+}
