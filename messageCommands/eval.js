@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const pms = require("pretty-ms");
 const sourcebin = require("sourcebin");
+const axios = require("axios");
 
 module.exports = {
   name: "eval",
@@ -19,8 +20,17 @@ module.exports = {
       try {
         const evaled = await eval(`(async () => { return ${input} })().catch(e => { return "Error: " + e })`);
 
+        const formattedResult = JSON.stringify(evaled, null, 4);
+        const messageContent = `**Input**
+			\`\`\`js\n${input}\n\`\`\`\n**Output**\n\`\`\`json\n${formattedResult}\n\`\`\``;
+        await message.channel.send({
+          content: messageContent.length > 2000 ? "Output too long to send, attached it" : messageContent,
+          files: messageContent.length > 2000 ? [new Discord.MessageAttachment(Buffer.from("//Input\n" + input + "\n\n//Output\n" + formattedResult), "result.js")] : [],
+        });
+        return;
+
         return message.channel.send({
-          embeds: [await sucEmbed(evaled, message, input)],
+          content: `**Input**\`\`\`js\n${message.content}\n\`\`\`\n**Output**\n\`\`\`js\n${JSON.stringify(evaled, null, 4)}\n\`\`\``,
         });
       } catch (err) {
         return message.channel.send({ embeds: [errEmbed(err.stack)] });

@@ -177,9 +177,9 @@ function checkDiagonal({ board, value, up }) {
     // iterating the row and getting index
     for (let [columnIndex, dot] of row.entries()) {
       if (dot === value) {
-        let rowIndexValue = rowIndex
+        let rowIndexValue = rowIndex;
         // Creating index holders
-        let columnIndexValue = columnIndex
+        let columnIndexValue = columnIndex;
         let consecutiveMatchCount = 0;
         // while the following element of the diagonal equals the value
         while (board[rowIndexValue]?.[columnIndexValue] === value) {
