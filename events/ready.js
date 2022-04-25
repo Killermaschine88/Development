@@ -1,3 +1,6 @@
+const { getFlips } = require("../constants/skyblock/main.js");
+const { updateLowestBinPrices } = require("../constants/skyblock/helper.js");
+
 module.exports = {
   name: "ready",
   async execute(client) {
@@ -6,5 +9,14 @@ module.exports = {
       type: "WATCHING",
     });
     await client.application.fetch();
+
+    await updateLowestBinPrices(client);
+    await getFlips(client);
+    setInterval(async () => {
+      await getFlips(client);
+    }, 30000);
+    setInterval(async () => {
+      await updateLowestBinPrices(client);
+    }, 600000);
   },
 };

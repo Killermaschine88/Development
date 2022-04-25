@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 module.exports = {
   name: "interactionCreate",
   async execute(interaction) {
@@ -27,6 +29,19 @@ module.exports = {
 
     //Buttons
     if (interaction.isButton()) {
+      if (interaction.customId === "show_name") {
+        await interaction.deferUpdate();
+        try {
+          const res = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${interaction.message.content}`);
+          if (res?.data?.name) {
+            await interaction.followUp({ content: `\`/ah ${res.data.name}\``, ephemeral: true });
+          }
+        } catch (e) {
+          log(e, "ERROR");
+          await interaction.followUp({ content: "Error", ephemeral: true });
+        }
+      }
+
       if (interaction.customId === "troll") {
         await interaction.deferUpdate();
         const comps = interaction.message.components[0];

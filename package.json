@@ -13,15 +13,18 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
+    "canvas": "^2.9.1",
     "colorette": "^2.0.16",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "follow-redirects": "^1.14.9",
     "got": "^11.8.3",
     "mongodb": "^4.5.0",
     "pm2": "^5.2.0",
     "prettier": "^2.6.0",
     "pretty-ms": "^7.0.1",
+    "prismarine-nbt": "^2.2.1",
     "sourcebin": "^4.3.5"
   },
   "prettier": {

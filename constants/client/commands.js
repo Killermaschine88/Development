@@ -64,6 +64,18 @@ const commands = [
     name: "game",
     description: "Play a game",
   },
+  {
+    name: "check-auction",
+    description: "check an auction",
+    options: [
+      {
+        name: "uuid",
+        description: "auction id",
+        type: "STRING",
+        required: true,
+      },
+    ],
+  },
 ];
 
 module.exports = { commands };
