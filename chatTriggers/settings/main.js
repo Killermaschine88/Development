@@ -1,6 +1,6 @@
 import { @Vigilant, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance';
 
-@Vigilant("AH-Bot")
+@Vigilant("AHBot")
 class Settings {
     @TextProperty({
         name: "text",
