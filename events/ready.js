@@ -14,7 +14,7 @@ module.exports = {
     await getFlips(client);
     setInterval(async () => {
       await getFlips(client);
-    }, 30000);
+    }, 20000);
     setInterval(async () => {
       await updateLowestBinPrices(client);
     }, 600000);

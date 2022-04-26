@@ -1,62 +1,57 @@
+import request from "requestV2/index"
+import Settings from "./settings/main.js"
+
 let started = false;
 let render = false;
 let i = 0;
-const axios = require("axios");
 let sent = []
+const { prefix, suffix, rarities } = require("./constants/file.js")
 
+//Command
+register("command", () => {
+  Settings.openGUI()
+}).setName("ahbot");
+
+
+//Rest
 register("step", () => {
   if (!started) return;
   //Whatever you wanna call every 30 seconds and started has to be true
   try {
-    const res = (await axios.get("https://development.baltrazz.repl.co/shards"))?.data;
-    if (res.length > 0) {
-      for (const item of res) {
-        if(sent.includes(item.command)) continue;
-        sendMessage(item);
-        sent.push(item.command)
-      }
-    } else {
-      return ChatLib.chat("No new Items found.");
-    }
+    request("https://development.baltrazz.repl.co/shards").then(res => {
+        if (res.length > 0) {
+            res = JSON.parse(res);
+            res.forEach(item => {
+                if(sent.includes(item.command)) return;
+                sendMessage(item);
+                sent.push(item.command)
+            })
+          } else {
+            return ChatLib.chat(`${prefix} No new Items found.`);
+          }
+    })
   } catch (e) {
     started = false;
-    return ChatLib.chat("Error occured, stopped Module.");
+    return ChatLib.chat(`${prefix} Error occured, stopped Module.`);
   }
-}).setDelay(30);
+}).setDelay(15);
 
-register("command", () => {
-  if (started) {
-    return ChatLib.chat("Module already started.");
-  }
-  started = true;
-  ChatLib.chat("Started AH Bot.");
-  sendMessage();
-}).setName("startah");
 
-register("command", () => {
-  if (!started) {
-    return ChatLib.chat("Module not started yet.");
-  }
-  started = false;
-  ChatLib.chat("Stopped AH Bot.");
-}).setName("stopah");
+
 
 let imagE;
 const GUIClass = Java.type("net.minecraft.client.gui.GuiChat").class.toString();
 render = false;
 
 register("postguirender", (mouseX, mouseY, guiname) => {
+  ChatLib.chat("before " + guiname.class.toString())
   if (!guiname.class.toString() == GUIClass) return;
   if (!render) return;
+  ChatLib.chat("after " + guiname.class.toString())
   imagE.draw(1, 1);
   render = false;
 });
+
 register("chatcomponenthovered", () => {
   render = true;
 });
-
-function sendMessage(item) {
-  if (!started) return;
-  imagE = new Image(`${item.name}${i++}`, `${item.image}`);
-  new Message(new TextComponent(`${item.name} - ${item.price}`).setClick("run_command", `${item.command}`).setHover("show_text", "§eImage")).chat();
-}

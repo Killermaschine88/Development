@@ -7,6 +7,7 @@ module.exports = {
       shards.push({
         name: message.embeds[0].fields[1].value,
         price: message.embeds[0].fields[0].value,
+        rarity: message.embeds[0].fields[2].value,
         image: message.attachments.first().url,
         command: message.embeds[0].description.replaceAll("`", ""),
       });

@@ -2,9 +2,9 @@ function globalStart() {
   require("dotenv").config();
   global.color = require("colorette");
   global.shards = [];
-  setInterval(() => {
+ /* setInterval(() => {
     shards = [];
-  }, 120000);
+  }, 5 * 60 * 1000);*/
 
   //starting web server
   const app = require("express")();

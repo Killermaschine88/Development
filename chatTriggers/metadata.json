@@ -3,5 +3,5 @@
   "creator": "Baltraz",
   "description": "AH Sniper",
   "entry": "index.js",
-  "requires": ["axios"]
+  "requires": ["RequestV2", "Vigilance"]
 }

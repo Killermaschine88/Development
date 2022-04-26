@@ -85,14 +85,14 @@ async function getFlips(client) {
 
     if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`);
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`).addField("Rarity", `${item.item.tier}`);
       const img = await getImage(item.item);
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
     if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["lifeline"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`);
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`).addField("Rarity", `${item.item.tier}`);
       const img = await getImage(item.item);
       client.channels.cache.get("968414012788342784").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }

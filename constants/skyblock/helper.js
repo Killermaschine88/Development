@@ -59,14 +59,14 @@ async function updateLowestBinPrices(client) {
 
     if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["mana_pool"] && formatted.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`);
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
       const img = await getImage(item);
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
     if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["lifeline"] && formatted.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`);
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
       const img = await getImage(item);
       client.channels.cache.get("968414012788342784").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
@@ -80,7 +80,7 @@ async function updateLowestBinPrices(client) {
 async function getItems() {
   const b4 = Date.now();
   const firstPage = await axios.get(`https://api.hypixel.net/skyblock/auctions?page=0`);
-  const pages = firstPage.data.totalPages;
+  const pages = firstPage.data.totalPages-1;
   let auctions = [];
 
   let promises = new Array(pages).fill(null).map(async (_, i) => {
