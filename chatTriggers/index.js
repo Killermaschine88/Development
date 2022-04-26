@@ -1,5 +1,18 @@
-register("command", sendMessage()).setName("baltraz")
+let started = false
+
+register("command", function() {
+  started = true
+  ChatLib.chat("Started AH Bot.");
+}).setName("startah")
+
+
+register("command", function() {
+  started = false
+  ChatLib.chat("Stopped AH Bot.")
+}).setName("stopah")
+
 function sendMessage() {
+  if(!started) return
 
   const image = new Image(`test.png`, `https://cdn.discordapp.com/attachments/968043926877503492/968269669398089728/auctionLore.png`)
   const myMessage = new Message(

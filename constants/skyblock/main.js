@@ -77,7 +77,8 @@ async function getFlips(client) {
 
       embed.setDescription(`/viewauction ${item.item.uuid}`);
       embed.addField("Info", `Price: ${item.item.starting_bid.toLocaleString()}\nItem: ${JSON.stringify(item.attributes.tag.ExtraAttributes.attributes)}`);
-      const img = await getImage(item.item).addField("Seller", `${item.item.auctioneer}`);
+      const img = await getImage(item.item)
+        embed.addField("Seller", `${item.item.auctioneer}`);
 
       client.channels.cache.get(channel).send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }

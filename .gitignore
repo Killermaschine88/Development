@@ -16,3 +16,4 @@ replit.nix
 # Other
 .env
 constants/functions/renderLore/
+constants/skyblock/
