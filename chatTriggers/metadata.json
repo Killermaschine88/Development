@@ -1,6 +1,7 @@
 {
   "name": "AH Sniper",
-  "creator": "Baltrat",
+  "creator": "Baltraz",
   "description": "AH Sniper",
-  "entry": "index.js"
+  "entry": "index.js",
+  "requires": ["axios"]
 }

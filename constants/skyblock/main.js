@@ -77,17 +77,24 @@ async function getFlips(client) {
 
       embed.setDescription(`/viewauction ${item.item.uuid}`);
       embed.addField("Info", `Price: ${item.item.starting_bid.toLocaleString()}\nItem: ${JSON.stringify(item.attributes.tag.ExtraAttributes.attributes)}`);
-      const img = await getImage(item.item)
-        embed.addField("Seller", `${item.item.auctioneer}`);
+      const img = await getImage(item.item);
+      embed.addField("Seller", `${item.item.auctioneer}`);
 
       client.channels.cache.get(channel).send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
     if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Info", `Price: ${item.item.starting_bid.toLocaleString()}\nItem: ${item.item.item_name}`).addField("Seller", `${item.item.auctioneer}`);
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`);
       const img = await getImage(item.item);
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    }
+
+    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["lifeline"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
+      if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`);
+      const img = await getImage(item.item);
+      client.channels.cache.get("968414012788342784").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
   }
 }
