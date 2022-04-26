@@ -1,4 +1,4 @@
-import request from "requestV2/index";
+import request from "./requestV2/index";
 import Settings from "./settings/main.js";
 
 let started = false;
@@ -10,7 +10,7 @@ const { prefix, suffix, rarities } = require("./constants/file.js");
 //Command
 register("command", () => Settings.openGUI()).setName("test");
 
-return
+/*return
 
 //Rest
 register("step", () => {
@@ -51,3 +51,4 @@ register("postguirender", (mouseX, mouseY, guiname) => {
 register("chatcomponenthovered", () => {
   render = true;
 });
+*/
