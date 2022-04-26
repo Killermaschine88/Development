@@ -1,4 +1,4 @@
-import request from "./requestV2/index";
+import request from "requestV2/index";
 import Settings from "./settings/main.js";
 
 let started = false;
