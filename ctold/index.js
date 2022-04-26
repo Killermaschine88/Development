@@ -23,8 +23,9 @@ register("step", () => {
             res = JSON.parse(res);
             res.forEach(item => {
                 if(sent.includes(item.command)) return;
+              sent.push(item.command)
                 sendMessage(item);
-                sent.push(item.command)
+                //sent.push(item.command)
             })
           } else {
             return ChatLib.chat(`${prefix} No new Items found.`);
@@ -34,7 +35,7 @@ register("step", () => {
     started = false;
     return ChatLib.chat(`${prefix} Error occured, stopped Module.`);
   }
-}).setDelay(15);
+}).setDelay(30);
 
 register("command", () => {
   if (started) {
@@ -57,7 +58,7 @@ const GUIClass = Java.type("net.minecraft.client.gui.GuiChat").class.toString();
 render = false;
 
 register("postguirender", (mouseX, mouseY, guiname) => {
-  ChatLib.chat("before " + guiname.class.toString())
+  //ChatLib.chat("before " + guiname.class.toString())
   if (!guiname.class.toString() == GUIClass) return;
   if (!render) return;
   ChatLib.chat("after " + guiname.class.toString())
