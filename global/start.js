@@ -2,7 +2,7 @@ function globalStart() {
   require("dotenv").config();
   global.color = require("colorette");
   global.shards = [];
- /* setInterval(() => {
+  /* setInterval(() => {
     shards = [];
   }, 5 * 60 * 1000);*/
 

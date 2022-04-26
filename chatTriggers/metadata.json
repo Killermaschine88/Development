@@ -1,7 +1,7 @@
 {
-  "name": "AH Sniper",
+  "name": "AH-Bot",
   "creator": "Baltraz",
-  "description": "AH Sniper",
+  "description": "Epic Module",
   "entry": "index.js",
   "requires": ["RequestV2", "Vigilance"]
 }

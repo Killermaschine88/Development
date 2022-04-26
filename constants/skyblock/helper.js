@@ -80,7 +80,7 @@ async function updateLowestBinPrices(client) {
 async function getItems() {
   const b4 = Date.now();
   const firstPage = await axios.get(`https://api.hypixel.net/skyblock/auctions?page=0`);
-  const pages = firstPage.data.totalPages-1;
+  const pages = firstPage.data.totalPages - 1;
   let auctions = [];
 
   let promises = new Array(pages).fill(null).map(async (_, i) => {

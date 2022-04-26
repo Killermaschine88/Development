@@ -1,6 +1,6 @@
 import { @Vigilant, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance';
 
-@Vigilant("MyModuleName")
+@Vigilant("AH-Bot")
 class Settings {
     @TextProperty({
         name: "text",
@@ -10,6 +10,14 @@ class Settings {
         placeholder: "Empty... :("
     })
     textInput = "";
+
+    @ColorProperty({
+        name: "Color Picker",
+        description: "Pick a color! (hopefully...)",
+        category: "General",
+        subcategory: "Category"
+    })
+    myColor = Color.BLUE;
 
     @ButtonProperty({
         name: "Do action!!!",
