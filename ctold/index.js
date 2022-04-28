@@ -1,61 +1,62 @@
-import request from "requestV2/index"
+import request from "requestV2/index";
 let started = false;
 let render = false;
 let i = 0;
 let j = 0;
 let sent = [];
 let running = false;
-let divider = 5
-const prefix = "[§eAH Bot§f]"
-const suffix = "§l§f[§6CLICK ME§f]"
+let color = true;
+let divider = 5;
+const prefix = "[§eAH Bot§f]";
+const suffix = "§l§f[§6CLICK ME§f]";
 const rarities = {
   COMMON: "§7",
   UNCOMMON: "§a",
   RARE: "§9",
   EPIC: "§5",
   LEGENDARY: "§6",
-  MYTHIC: "§d"
-}
+  MYTHIC: "§d",
+};
 
-const blacklist = ["Your Implosion", "There are blocks"]
+const blacklist = ["Your Implosion", "There are blocks"];
 
 //Implosion Hider
 register("chat", (message, event) => {
-  if(blacklist.some(word => message.includes(word))) {
-    cancel(event)
+  if (blacklist.some((word) => message.includes(word))) {
+    cancel(event);
   }
-}).setCriteria("${message}")
+}).setCriteria("${message}");
 
 register("step", () => {
   if (!started) return;
-  if(running) return;
-  running = true
+  if (running) return;
+  running = true;
   ChatLib.chat(`${prefix} Started searching for Items.`);
-  if(j % divider === 0) {
-    sent = []
+  if (j % divider === 0) {
+    sent = [];
   }
-  j++
+  j++;
   //Whatever you wanna call every 30 seconds and started has to be true
   try {
-    request("https://development.baltrazz.repl.co/shards").then(res => {
-        if (res.length > 0) {
-            res = JSON.parse(res);
-            res.forEach(item => {
-                if(sent.includes(item.command)) return;
-              sent.push(item.command)
-                sendMessage(item);
-                //sent.push(item.command)
-            })
-          } else {
-            return ChatLib.chat(`${prefix} No new Items found.`);
-          }
-    })
+    request("https://development.baltrazz.repl.co/shards").then((res) => {
+      if (res.length > 0) {
+        res = JSON.parse(res);
+        res.forEach((item) => {
+          if (sent.includes(item.command)) return;
+          sent.push(item.command);
+          sendMessage(item);
+          //sent.push(item.command)
+        });
+      } else {
+        return ChatLib.chat(`${prefix} No new Items found.`);
+      }
+    });
     ChatLib.chat(`${prefix} Finished searching Items and sent them.`);
   } catch (e) {
     started = false;
-    return ChatLib.chat(`${prefix} Error occured, stopped Module.`);
+    ChatLib.chat(`${prefix} Error occured, stopped Module.`);
   }
-  running = false
+  running = false;
 }).setDelay(20);
 
 register("command", () => {
@@ -64,7 +65,7 @@ register("command", () => {
   }
   started = true;
   ChatLib.chat(`${prefix} Started AH Bot.`);
-}).setName("startah");
+}).setName("ahstart");
 
 register("command", () => {
   if (!started) {
@@ -72,36 +73,35 @@ register("command", () => {
   }
   started = false;
   ChatLib.chat(`${prefix} Stopped AH Bot.`);
-}).setName("stopah");
+}).setName("ahstop");
 
 register("command", (arg1) => {
-  if(isNaN(Number(arg1))) {
-    return ChatLib.chat(`${prefix} ${arg1} isnt a valid number.`)
+  if (isNaN(Number(arg1))) {
+    ChatLib.chat(`${prefix} ${arg1} isnt a valid number.`);
   } else {
-    divider = Number(arg1)
-    return ChatLib.chat(`${prefix} Succcessfully changed to ${arg1}`)
+    divider = Number(arg1);
+    ChatLib.chat(`${prefix} Succcessfully changed to ${arg1}`);
   }
-}).setName("divider")
+}).setName("ahdivider");
 
-/*let imagE;
-const GUIClass = Java.type("net.minecraft.client.gui.GuiChat").class.toString();
-render = false;
+register("command", () => {
+  if (color) {
+    color = false;
+    ChatLib.chat(`${prefix} Disabled Price Color change`);
+  } else {
+    color = true;
+    ChatLib.chat(`${prefix} Enabled Price Color change`);
+  }
+}).setName("ahcolor");
 
-register("postguirender", (mouseX, mouseY, guiname) => {
-  //ChatLib.chat("before " + guiname.class.toString())
-  if (!guiname.class.toString() == GUIClass) return;
-  if (!render) return;
-  ChatLib.chat("after " + guiname.class.toString())
-  imagE.draw(1, 1);
-  render = false;
-});
-
-register("chatcomponenthovered", () => {
-  render = true;
-});*/
 
 function sendMessage(item) {
   if (!started) return;
-  //imagE = new Image(`${item.name}${i++}`, `${item.image}`);
-  new Message(new TextComponent(`${prefix} ${rarities[item.rarity]}${item.name} §f- §a${item.price} ${suffix}`).setClick("run_command", `${item.command}`).setHover("show_text", `${item.name}`)).chat();
+  let colorcode = "a";
+  ChatLib.chat("before")
+  if (Number(item.price.replaceAll(",", "")) > 20000000 && color) {
+    colorcode = "c";
+  }
+  ChatLib.chat("after")
+  new Message(new TextComponent(`${prefix} ${rarities[item.rarity]}${item.name} §f- §${colorcode}${item.price} ${suffix}`).setClick("run_command", `${item.command}`).setHover("show_text", `${item.name}`)).chat();
 }
