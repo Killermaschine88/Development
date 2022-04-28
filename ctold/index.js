@@ -5,6 +5,7 @@ let i = 0;
 let j = 0;
 let sent = [];
 let running = false;
+let divider = 5
 const prefix = "[§eAH Bot§f]"
 const suffix = "§l§f[§6CLICK ME§f]"
 const rarities = {
@@ -30,7 +31,7 @@ register("step", () => {
   if(running) return;
   running = true
   ChatLib.chat(`${prefix} Started searching for Items.`);
-  if(j % 5 === 0) {
+  if(j % divider === 0) {
     sent = []
   }
   j++
@@ -72,6 +73,15 @@ register("command", () => {
   started = false;
   ChatLib.chat(`${prefix} Stopped AH Bot.`);
 }).setName("stopah");
+
+register("command", (arg1) => {
+  if(isNaN(Number(arg1))) {
+    return ChatLib.chat(`${prefix} ${arg1} isnt a valid number.`)
+  } else {
+    divider = Number(arg1)
+    return ChatLib.chat(`${prefix} Succcessfully changed to ${arg1}`)
+  }
+}).setName("divider")
 
 /*let imagE;
 const GUIClass = Java.type("net.minecraft.client.gui.GuiChat").class.toString();

@@ -4,7 +4,7 @@ module.exports = {
   name: "messageCreate",
   async execute(message, client) {
     if ((message.channel.id === "968043926877503492" || message.channel.id === "968414012788342784") && message.author.id === "844951901653041203") {
-      if(message.content === "0e64442a82894fc8a7b6aaa74938501b" || message.comtent === "44f0ab5df696477b91516d0795c2f876") return
+      if(message.content === "0e64442a82894fc8a7b6aaa74938501b" || message.content === "44f0ab5df696477b91516d0795c2f876") return
       if(shards.includes(message.embeds[0].description.replaceAll("`", ""))) return
       shards.push({
         name: message.embeds[0].fields[1].value,
