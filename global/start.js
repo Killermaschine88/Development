@@ -12,6 +12,9 @@ function globalStart() {
   app.get("/", (req, res) => res.send("OK"));
 
   app.get("/shards", (req, res) => {
+    if(req.query.key !== process.env.KEY) {
+      //return res.status(403).send("Disallowed")
+    }
     res.send(shards);
   });
 

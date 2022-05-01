@@ -3,5 +3,5 @@
   "creator": "Baltraz",
   "description": "AH Sniper",
   "entry": "index.js",
-  "requires": ["RequestV2"]
+  "requires": ["RequestV2", "RichPresence"]
 }

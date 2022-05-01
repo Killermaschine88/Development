@@ -7,15 +7,19 @@ const Discord = require("discord.js");
 async function updateLowestBinPrices(client) {
   log("Started refreshing Prices");
   const res = await getItems();
-  const data = res.data;
+  let data = res.data;
   const b4 = Date.now();
   lbin = {};
   //addSetItems();
-  await addEnchants();
+  //await addEnchants();
+
+  data = data.filter(item => !["COMMON", "UNCOMMON"].includes(item.tier) && !item.claimed && item.auctioneer !== "44f0ab5df696477b91516d0795c2f876" && item.auctioneer !== "0e64442a82894fc8a7b6aaa74938501b" && !["misc", "consumables", "blocks"].includes(item.tier) && !item.item_lore.split("\n").some(e => ["Enchanted Book", "SPECIAL", "Furniture", "FURNITURE", "DUNGEON"].includes(e)))
 
   for (let item of data) {
     const formatted = (await decodeData(Buffer.from(item.item_bytes, "base64"))).i[0]; //item_bytes
 
+    //
+    /*
     const check = ignoredCheck(item, formatted);
     if (!check) continue;
 
@@ -32,6 +36,8 @@ async function updateLowestBinPrices(client) {
         };
       }
     }
+    */
+    //
 
     if (item.item_name === "Attribute Shard") {
       const attributes = formatted.tag.ExtraAttributes.attributes;

@@ -37,7 +37,7 @@ async function getFlips(client) {
     //filter out unwanted items
     //const check = ignoredCheck(item.item, item.attributes);
     //if (check) continue;
-    if (item.attributes?.tag.ExtraAttributes.id.includes("PERSONALIT")) continue;
+    //if (item.attributes?.tag.ExtraAttributes.id.includes("PERSONALIT")) continue;
     if (found.item.starting_bid < 100000) continue;
 
     if (item.attributes.Count > 1 || found.attributes.Count > 1) {

@@ -105,3 +105,13 @@ function sendMessage(item) {
   ChatLib.chat("after")
   new Message(new TextComponent(`${prefix} ${rarities[item.rarity]}${item.name} §f- §${colorcode}${item.price} ${suffix}`).setClick("run_command", `${item.command}`).setHover("show_text", `${item.name}`)).chat();
 }
+
+import RichPresence from "RichPresence";
+
+const rpc = new RichPresence("844951901653041203", {
+  state: "Making Money",
+  details: "on Skyblock",
+  startTimestamp: Date.now(),
+  //largeImageKey: "imageName", //this image is uploaded to the rich presence section of your application https://discord.com/developers/applications
+  largeImageText: "Hello"
+})
