@@ -10,13 +10,13 @@ module.exports = {
     });
     await client.application.fetch();
 
-    await updateLowestBinPrices(client);
-    await getFlips(client);
+    updateLowestBinPrices(client);
+    getFlips(client);
     setInterval(async () => {
-      await getFlips(client);
+      getFlips(client);
     }, 20000);
     setInterval(async () => {
-      await updateLowestBinPrices(client);
+      updateLowestBinPrices(client);
     }, 600000);
   },
 };

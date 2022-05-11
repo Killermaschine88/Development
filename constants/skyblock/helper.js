@@ -13,7 +13,7 @@ async function updateLowestBinPrices(client) {
   //addSetItems();
   //await addEnchants();
 
-  data = data.filter(item => !["COMMON", "UNCOMMON"].includes(item.tier) && !item.claimed && item.auctioneer !== "44f0ab5df696477b91516d0795c2f876" && item.auctioneer !== "0e64442a82894fc8a7b6aaa74938501b" && !["misc", "consumables", "blocks"].includes(item.tier) && !item.item_lore.split("\n").some(e => ["Enchanted Book", "SPECIAL", "Furniture", "FURNITURE", "DUNGEON"].includes(e)))
+  data = data.filter((item) => !["UNCOMMON"].includes(item.tier) && !item.claimed && item.auctioneer !== "44f0ab5df696477b91516d0795c2f876" && item.auctioneer !== "0e64442a82894fc8a7b6aaa74938501b" && !["misc", "consumables", "blocks"].includes(item.tier) && !item.item_lore.split("\n").some((e) => ["Enchanted Book", "SPECIAL", "Furniture", "FURNITURE", "DUNGEON"].includes(e)));
 
   for (let item of data) {
     const formatted = (await decodeData(Buffer.from(item.item_bytes, "base64"))).i[0]; //item_bytes
@@ -38,9 +38,13 @@ async function updateLowestBinPrices(client) {
     }
     */
     //
+    /*if(formatted.tag.ExtraAttributes.attributes) {
+      console.log(item.item_name)
+    }*/
 
     if (item.item_name === "Attribute Shard") {
       const attributes = formatted.tag.ExtraAttributes.attributes;
+      //console.log(formatted.tag.ExtraAttributes)
       const embed = new Discord.MessageEmbed();
       let channel;
       if (attributes["mana_pool"]) {
@@ -51,6 +55,9 @@ async function updateLowestBinPrices(client) {
       }
       if (attributes["attack_speed"]) {
         channel = "968064802826100747";
+      }
+      if (attributes["breeze"]) {
+        channel = "973715900266078218";
       }
       if (!channel) continue;
       if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
@@ -68,6 +75,20 @@ async function updateLowestBinPrices(client) {
       const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
       const img = await getImage(item);
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    }
+
+    if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["mana_pool"] && formatted.tag?.ExtraAttributes?.attributes["breeze"] && item.item_name.includes("Aurora") && !item.item_name.includes("Aurora Helmet")) {
+      if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
+      const img = await getImage(item);
+      client.channels.cache.get("973209144431640637").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    }
+
+    if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["mana_pool"] && formatted.tag?.ExtraAttributes?.attributes["breeze"] && item.category !== "armor" && !item.item_name.includes("Glowstone")) {
+      if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
+      const img = await getImage(item);
+      client.channels.cache.get("973710392574476289").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
     if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["lifeline"] && formatted.tag?.ExtraAttributes?.attributes["life_regeneration"]) {

@@ -10,6 +10,7 @@ setInterval(() => {
 
 async function getFlips(client) {
   let data;
+  //console.log("Started getting Items again")
   try {
     const res = await axios.get(`https://api.hypixel.net/skyblock/auctions`);
     if (!res.data.success) return;
@@ -24,11 +25,11 @@ async function getFlips(client) {
       attributes: (await decodeData(Buffer.from(item.item_bytes, "base64"))).i[0],
     };
 
-    const found = lbin[item.attributes.tag.ExtraAttributes.id];
-    let perPiece1 = "x";
-    let perPiece2 = "x";
+    // const found = lbin[item.attributes.tag.ExtraAttributes.id];
+    // let perPiece1 = "x";
+    // let perPiece2 = "x";
 
-    if (!found) continue;
+    // if (!found) continue;
 
     if (cache.includes(item.item.uuid)) continue;
 
@@ -38,7 +39,7 @@ async function getFlips(client) {
     //const check = ignoredCheck(item.item, item.attributes);
     //if (check) continue;
     //if (item.attributes?.tag.ExtraAttributes.id.includes("PERSONALIT")) continue;
-    if (found.item.starting_bid < 100000) continue;
+    /* if (found.item.starting_bid < 100000) continue;
 
     if (item.attributes.Count > 1 || found.attributes.Count > 1) {
       perPiece1 = (item.item.starting_bid / item.attributes.Count).toFixed(2);
@@ -55,7 +56,7 @@ async function getFlips(client) {
       const image2 = await getImage(found.item);
 
       channel.send({ content: role ? `<@&${role}>` : null, embeds: [embed], files: [image1, image2] });
-    }
+    }*/
 
     //shard and doubles
     if (item.item.item_name === "Attribute Shard") {
@@ -71,6 +72,9 @@ async function getFlips(client) {
       }
       if (attributes["attack_speed"]) {
         channel = "968064802826100747";
+      }
+      if (attributes["breeze"]) {
+        channel = "973715900266078218";
       }
       if (!channel) continue;
       if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
@@ -90,6 +94,20 @@ async function getFlips(client) {
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
+    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.item_name.includes("Aurora") && !item.item_name.includes("Aurora Helmet")) {
+      if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
+      const img = await getImage(item);
+      client.channels.cache.get("973209144431640637").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    }
+
+    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.category !== "armor" && !item.item_name.includes("Glowstone")) {
+      if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
+      const img = await getImage(item);
+      client.channels.cache.get("973710392574476289").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    }
+
     if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["lifeline"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {
       if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
       const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`).addField("Rarity", `${item.item.tier}`);
@@ -97,6 +115,8 @@ async function getFlips(client) {
       client.channels.cache.get("968414012788342784").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
   }
+
+  //console.log("Finished finding Items again")
 }
 
 module.exports = { getFlips };
