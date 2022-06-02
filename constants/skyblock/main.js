@@ -94,18 +94,18 @@ async function getFlips(client) {
       client.channels.cache.get("968043926877503492").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
-    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.item_name.includes("Aurora") && !item.item_name.includes("Aurora Helmet")) {
+    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.item.item_name.includes("Aurora") && !item.item.item_name.includes("Aurora Helmet")) {
       if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
-      const img = await getImage(item);
-      client.channels.cache.get("973209144431640637").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`).addField("Rarity", `${item.item.tier}`);
+      const img = await getImage(item.item);
+      client.channels.cache.get("973209144431640637").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
-    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.category !== "armor" && !item.item_name.includes("Glowstone")) {
-      if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
-      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
-      const img = await getImage(item);
-      client.channels.cache.get("973710392574476289").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
+    if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["mana_pool"] && item.attributes.tag?.ExtraAttributes?.attributes["breeze"] && item.item.category !== "armor" && !item.item.item_name.includes("Belt") && item.item_name.includes("Molten") && !item.item_name.includes("Bracelet")) {
+      if (item.item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
+      const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.item.uuid}\``).addField("Price", `${item.item.starting_bid.toLocaleString()}`).addField("Name", `${item.item.item_name}`).addField("Rarity", `${item.item.tier}`);
+      const img = await getImage(item.item);
+      client.channels.cache.get("973710392574476289").send({ embeds: [embed], files: [img], content: `${item.item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
     if (item.attributes.tag?.ExtraAttributes?.attributes && item.attributes.tag?.ExtraAttributes?.attributes["lifeline"] && item.attributes.tag?.ExtraAttributes?.attributes["life_regeneration"]) {

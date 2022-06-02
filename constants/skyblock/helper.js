@@ -84,7 +84,7 @@ async function updateLowestBinPrices(client) {
       client.channels.cache.get("973209144431640637").send({ embeds: [embed], files: [img], content: `${item.auctioneer}`, components: [new Discord.MessageActionRow().addComponents(new Discord.MessageButton().setLabel("Show Name").setCustomId("show_name").setStyle("SECONDARY"))] });
     }
 
-    if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["mana_pool"] && formatted.tag?.ExtraAttributes?.attributes["breeze"] && item.category !== "armor" && !item.item_name.includes("Glowstone")) {
+    if (formatted.tag?.ExtraAttributes?.attributes && formatted.tag?.ExtraAttributes?.attributes["mana_pool"] && formatted.tag?.ExtraAttributes?.attributes["breeze"] && item.category !== "armor" && !item.item_name.includes("Belt") && item.item_name.includes("Molten") && !item.item_name.includes("Bracelet")) {
       if (item.auctioneer === "f999bee205184827aad5454a76658beb") continue;
       const embed = new Discord.MessageEmbed().setDescription(`\`/viewauction ${item.uuid}\``).addField("Price", `${item.starting_bid.toLocaleString()}`).addField("Name", `${item.item_name}`).addField("Rarity", `${item.tier}`);
       const img = await getImage(item);
