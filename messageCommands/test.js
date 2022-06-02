@@ -1,7 +1,7 @@
 const axios = require("axios");
 const Discord = require("discord.js");
 let checked = [];
-const { getImage } = require("../constants/functions/renderLore/renderLore.js");
+//const { getImage } = require("../constants/functions/renderLore/renderLore.js");
 
 module.exports = {
   name: "test",

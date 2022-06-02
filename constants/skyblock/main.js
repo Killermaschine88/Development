@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const axios = require("axios");
-const { decodeData, getImage } = require("../functions/renderLore/renderLore.js");
+//const { decodeData, getImage } = require("../functions/renderLore/renderLore.js");
 const { getInfo, ignoredCheck, getEstimatePrice } = require("./helper.js");
 
 let cache = [];
