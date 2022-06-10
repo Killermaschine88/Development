@@ -33,8 +33,8 @@ async function getMessageInput(interaction) {
   return m;
 }
 
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+function getRandomNumber(min, max, round=1) {
+  return (Math.random() * (max - min + 1) + min).toFixed(round);
 }
 
 module.exports = { sleep, execShell, getMessageInput, getRandomNumber };
