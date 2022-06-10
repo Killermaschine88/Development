@@ -63,6 +63,13 @@ const commands = [
   {
     name: "game",
     description: "Play a game",
+    options: [
+      {
+        name: "distance",
+        description: "Distance to see (max 6, default 3)",
+        type: "INTEGER",
+      },
+    ],
   },
   {
     name: "check-auction",
