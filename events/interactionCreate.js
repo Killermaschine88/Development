@@ -17,7 +17,7 @@ module.exports = {
         return await interaction.reply("This command is Dev only.");
       }
 
-      await checkDB(interaction);
+      //await checkDB(interaction);
 
       try {
         await interaction.deferReply({ ephemeral: command?.ephemeral ? true : false });

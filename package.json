@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start index.js",
+    "start": "pm2 start index.js -n Development",
     "kill": "pm2 delete 'all'",
     "format": "npx prettier --write ."
   },

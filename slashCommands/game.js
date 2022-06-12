@@ -10,7 +10,9 @@ module.exports = {
     await interaction.editReply("Started generating Map...");
     let map = new GameMap({ height: 2500, width: 2500 });
 
-    const embed = new Discord.MessageEmbed().setDescription(map.renderMap(3)).setColor("GREEN");
+    let viewDistance = interaction.options.getInteger("distance")
+    if(!viewDistance || viewDistance > 6) viewDistance = 3
+    const embed = new Discord.MessageEmbed().setDescription(map.renderMap(viewDistance)).setColor("GREEN");
 
     const msg = await interaction.editReply({ content: null, embeds: [embed], components: rows });
 
@@ -30,24 +32,19 @@ module.exports = {
 
       if (["up", "down", "left", "right"].includes(i.customId)) {
         const returned = handleMovementButtonClick(map, i);
-        map.pos = returned.obj.pos;
-
-        if (returned.walkedOn === 0) {
-          //Grass
-          stats.steps++;
-        } else if (returned.walkedOn === 3) {
-          //Treasure
-          stats.treasures++;
+        if(returned?.error) {
+          return await interaction.followUp({ content: returned.error, ephemeral: true })
         }
+        map.pos = returned.obj.pos;
       }
 
       if (i.customId === "cancel") {
         return collector.stop();
       }
 
-      embed.setDescription(map.renderMap(3));
-      embed.fields = [];
-      embed.addField("Stats", `Steps taken: ${stats.steps}\nTreasures found: ${stats.treasures}`);
+      embed.setDescription(map.renderMap(viewDistance));
+      //embed.fields = [];
+      //embed.addField("Stats", `Steps taken: ${stats.steps}\nTreasures found: ${stats.treasures}`);
 
       await interaction.editReply({ embeds: [embed] });
     });

@@ -15,4 +15,27 @@ for (let i = 0; i < choices.length; i++) {
   rows[i < 3 ? 0 : 1].components.push(new MessageButton().setStyle(choices[i].style).setCustomId(choices[i].id).setEmoji(choices[i].emoji));
 }
 
-module.exports = { rows };
+const options = [
+  {
+    name: "grass",
+    value: 0,
+    chance: 1000,
+  },
+  {
+    name: "wall",
+    value: 1,
+    chance: 100,
+  },
+  {
+    name: "treasure",
+    value: 3,
+    chance: 1
+  },
+  /*{
+    name: "temple",
+    value: 4,
+    chance: 0.1
+  }*/
+];
+
+module.exports = { rows, options };
