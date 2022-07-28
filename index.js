@@ -5,7 +5,7 @@ globalStart();
 //Discord Bot
 const Discord = require("discord.js");
 const client = new Discord.Client({
-  intents: ["GUILDS", "GUILD_MESSAGES"],
+  intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"],
   ws: {
     properties: {
       $browser: "Discord Android",
@@ -15,8 +15,14 @@ const client = new Discord.Client({
 
 client.login(process.env.DISCORD_TOKEN);
 
-const { connectMongo } = require("./constants/client/mongo.js");
-//client.mongo = connectMongo();
+const { MongoClient } = require("mongodb");
+client.mongo = new MongoClient(process.env.URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+client.mongo.connect();
+client.collection = client.mongo.db("KG").collection("dreop");
 
 //Imports
 const fs = require("fs");

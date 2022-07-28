@@ -4,7 +4,7 @@ let checked = [];
 //const { getImage } = require("../constants/functions/renderLore/renderLore.js");
 
 module.exports = {
-  name: "test",
+  name: "testa",
   devOnly: true,
   alias: [],
   async execute(message, args, client) {

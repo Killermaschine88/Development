@@ -3,6 +3,13 @@ const { checkAutomation } = require("../constants/functions/automation.js");
 module.exports = {
   name: "messageCreate",
   async execute(message, client) {
+
+    if(message.channel.id === "999282919686275094" && !message.member.permissions.has("ADMINISTRATOR")) {
+      setTimeout(async () => {
+        await message.delete().catch(err => err)
+      }, 10000)
+    }
+
     if ((message.channel.id === "968043926877503492" || message.channel.id === "973209144431640637") && message.author.id === "844951901653041203") {
       if (message.content === "0e64442a82894fc8a7b6aaa74938501b" || message.content === "44f0ab5df696477b91516d0795c2f876") return;
       if (shards.includes(message.embeds[0].description.replaceAll("`", ""))) return;
