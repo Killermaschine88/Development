@@ -40,10 +40,7 @@ module.exports = {
     if (!command) return;
 
     if (command.devOnly) {
-      if (!client.application?.owner?.id) {
-        await client.application.fetch();
-      }
-      if (message.author.id !== client.application?.owner?.id) {
+      if (message.author.id !== "551951090678104064") {
         return message.channel.send("Only my developer is allowed to use this");
       }
     }

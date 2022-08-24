@@ -8,7 +8,6 @@ module.exports = {
   devOnly: true,
   alias: ["ev", "e"],
   async execute(message, args, client) {
-    if (message.author.id !== client.application?.owner.id) return;
 
     if (args.length === 0) {
       return message.channel.send({ embeds: [errEmbed("No args provided!")] });
