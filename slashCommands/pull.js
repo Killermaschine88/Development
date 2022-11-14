@@ -6,7 +6,7 @@ module.exports = {
   devOnly: false,
   async execute(interaction) {
     // Ignore if not dev access role
-    if (!interaction.member.roles.cache.has("1010570031664484402")) return;
+    if (!interaction.member.roles.cache.has("1010570031664484402")) return interaction.editReply("Go away nerd!");
 
     // CD into Minecraft Directory
     exec("cd /home/Minecraft", (err, stdout, stderr) => {
