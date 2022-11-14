@@ -28,9 +28,9 @@ module.exports = {
       return await interaction.editReply({ embeds: [errEmbed(`The Minecraft Account your provided is invalid.`)] });
     }
 
-    if(await existsAlready(interaction, res.name)) {
+    if (await existsAlready(interaction, res.name)) {
       return await interaction.editReply({ embeds: [errEmbed("This Minecraft Account is already linked to another Discord Account.")] });
-  }
+    }
 
     if (res.discord === interaction.user.tag) {
       try {
@@ -70,7 +70,7 @@ async function getData(ign, interaction) {
       uuid: uuid,
     };
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return "API Error";
   }
 }
@@ -80,7 +80,7 @@ async function getUUID(ign, interaction) {
   try {
     response = (await axios.get(`https://api.mojang.com/users/profiles/minecraft/${ign}`))?.data;
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
 
   if (response?.id) {
@@ -95,21 +95,21 @@ async function updateDB(interaction, ign, uuid) {
 }
 
 async function existsAlready(interaction, name) {
-    const all = await interaction.client.collection.findOne({ "minecraft.name": name })
-    
-    if(all) {
-        return true
-    } else {
-        return false
-    }
+  const all = await interaction.client.collection.findOne({ "minecraft.name": name });
+
+  if (all) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function errEmbed(desc) {
-    const embed = new Discord.MessageEmbed().setTitle("Error").setColor("RED").setDescription(desc);
-    return embed;
-  }
-  
-  function sucEmbed(desc) {
-    const embed = new Discord.MessageEmbed().setTitle("Success").setColor("GREEN").setDescription(desc);
-    return embed;
-  }
+  const embed = new Discord.MessageEmbed().setTitle("Error").setColor("RED").setDescription(desc);
+  return embed;
+}
+
+function sucEmbed(desc) {
+  const embed = new Discord.MessageEmbed().setTitle("Success").setColor("GREEN").setDescription(desc);
+  return embed;
+}

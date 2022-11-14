@@ -10,8 +10,8 @@ module.exports = {
     await interaction.editReply("Started generating Map...");
     let map = new GameMap({ height: 2500, width: 2500 });
 
-    let viewDistance = interaction.options.getInteger("distance")
-    if(!viewDistance || viewDistance > 6) viewDistance = 3
+    let viewDistance = interaction.options.getInteger("distance");
+    if (!viewDistance || viewDistance > 6) viewDistance = 3;
     const embed = new Discord.MessageEmbed().setDescription(map.renderMap(viewDistance)).setColor("GREEN");
 
     const msg = await interaction.editReply({ content: null, embeds: [embed], components: rows });
@@ -32,8 +32,8 @@ module.exports = {
 
       if (["up", "down", "left", "right"].includes(i.customId)) {
         const returned = handleMovementButtonClick(map, i);
-        if(returned?.error) {
-          return await interaction.followUp({ content: returned.error, ephemeral: true })
+        if (returned?.error) {
+          return await interaction.followUp({ content: returned.error, ephemeral: true });
         }
         map.pos = returned.obj.pos;
       }

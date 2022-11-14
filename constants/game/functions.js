@@ -1,16 +1,16 @@
 const { getRandomNumber } = require("../functions/util.js");
-const { options } = require("./util.js")
+const { options } = require("./util.js");
 
 class GameMap {
   constructor({ width, height }) {
-    width = 100
-    height = 100
+    width = 100;
+    height = 100;
     let array = Array.from({ length: height }).map(() => []);
 
     for (const row of array) {
       while (row.length < width) {
         const block = this.getRandomStructure();
-        row.push(block.value)
+        row.push(block.value);
         //if(!block.value) console.log(block)
       }
     }
@@ -22,14 +22,14 @@ class GameMap {
 
     this.map = array;
     this.pos = { x: x, y: y };
-    console.log(array)
+    console.log(array);
   }
 
   getRandomStructure() {
-    let num = getRandomNumber(0, 1000, 1)
-    num = num < 500 ? getRandomNumber(0, 1000, 1) : num
-    const found = options.find(prop => prop.chance > num)
-    return found ? found : { name: "grass", value: 0, chance: 1000 }
+    let num = getRandomNumber(0, 1000, 1);
+    num = num < 500 ? getRandomNumber(0, 1000, 1) : num;
+    const found = options.find((prop) => prop.chance > num);
+    return found ? found : { name: "grass", value: 0, chance: 1000 };
   }
 
   getView(distance) {

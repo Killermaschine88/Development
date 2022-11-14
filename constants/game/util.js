@@ -29,7 +29,7 @@ const options = [
   {
     name: "treasure",
     value: 3,
-    chance: 1
+    chance: 1,
   },
   /*{
     name: "temple",

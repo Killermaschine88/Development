@@ -33,7 +33,7 @@ async function getMessageInput(interaction) {
   return m;
 }
 
-function getRandomNumber(min, max, round=1) {
+function getRandomNumber(min, max, round = 1) {
   return (Math.random() * (max - min + 1) + min).toFixed(round);
 }
 

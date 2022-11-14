@@ -83,6 +83,10 @@ const commands = [
       },
     ],
   },
+  {
+    name: "pull",
+    description: "Pull latest data from Github Repo",
+  },
 ];
 
 module.exports = { commands };

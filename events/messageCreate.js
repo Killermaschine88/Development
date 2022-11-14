@@ -3,11 +3,10 @@ const { checkAutomation } = require("../constants/functions/automation.js");
 module.exports = {
   name: "messageCreate",
   async execute(message, client) {
-
-    if(message.channel.id === "999282919686275094" && !message.member.permissions.has("ADMINISTRATOR")) {
+    if (message.channel.id === "999282919686275094" && !message.member.permissions.has("ADMINISTRATOR")) {
       setTimeout(async () => {
-        await message.delete().catch(err => err)
-      }, 10000)
+        await message.delete().catch((err) => err);
+      }, 10000);
     }
 
     if ((message.channel.id === "968043926877503492" || message.channel.id === "973209144431640637") && message.author.id === "844951901653041203") {
@@ -40,7 +39,7 @@ module.exports = {
     if (!command) return;
 
     if (command.devOnly) {
-      if (message.author.id !== "551951090678104064") {
+      if (message.author.id !== "570267487393021969") {
         return message.channel.send("Only my developer is allowed to use this");
       }
     }

@@ -1,7 +1,7 @@
 global.lbin = {};
 global.enchants = {};
 const axios = require("axios");
-const { decodeData, getImage } = "" //require("../functions/renderLore/renderLore.js");
+const { decodeData, getImage } = ""; //require("../functions/renderLore/renderLore.js");
 const Discord = require("discord.js");
 
 async function updateLowestBinPrices(client) {
