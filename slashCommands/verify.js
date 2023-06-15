@@ -32,7 +32,22 @@ module.exports = {
       return await interaction.editReply({ embeds: [errEmbed("This Minecraft Account is already linked to another Discord Account.")] });
     }
 
-    if (res.discord === interaction.user.tag) {
+    let allowedRoles = false;
+
+    // old names
+    if(res.discord === interaction.user.tag) {
+      allowedRoles = true;
+    }
+
+    // new names
+    if(!res.discord.includes("#")) {
+      if(`${res.discord}#0` === interaction.user.tag) {
+        allowedRoles = true;
+      }
+    }
+
+
+    if (allowedRoles) {
       try {
         await interaction.member.roles.add("999308818691399692", "Verified with Minecraft Account");
       } catch (e) {} //Ignore Error
